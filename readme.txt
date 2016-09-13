@@ -1,0 +1,3 @@
+sudo pip install pickledb
+Requirement already satisfied (use --upgrade to upgrade): cherrypy in /usr/local/lib/python2.7/dist-packages
+Cleaning up...

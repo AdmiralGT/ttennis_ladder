@@ -1,0 +1,1 @@
+nohup python resting.py > log 2>&1 &

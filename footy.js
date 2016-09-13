@@ -1,0 +1,527 @@
+
+
+// how many people to put in the table?
+var table_length = 500;
+
+var tabledata;
+
+var activitylist = [];
+
+var s_db;
+var d_db;
+
+//
+// function: startup
+//
+// params: none
+// returns: nothing
+//
+// entry function called on startup
+//
+function startup()
+{
+  // load the json data
+  loadjsondata("journal");
+}
+
+function pad_i(f, len)
+{
+  return pad_s('' + Math.floor(f), len);
+}
+
+function pad_s(str, len)
+{
+  if (str.length < len)
+  {
+    var padlen = len - str.length;
+
+    var pad = '';
+
+    for (i = 0; i < padlen; i++)
+    {
+      pad = '&nbsp;' + pad;
+    }
+
+    return pad + str;
+  }
+  else
+  {
+    return str;
+  }
+}
+//
+// function: drawtable
+//
+// function to draw the table, using the template
+//
+// params: none
+//
+// returns: nothing
+//
+function drawtable()
+{
+  // going to use a template for this!
+
+  // example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
+
+  // need in the item s_players, 
+  // {{:pad_rank}}   - padded to 4
+  // {{:pad_change}} - padded to 4
+  // {{:id}} - unpadded initials
+  // {{:id_padding}} - padding to make id length 4
+  // {{:record}} - win percentage, padded to xx.x%
+  // {{:gamerun}} - last ten games results
+
+  // the template then executes for each of the elements in this.
+
+  var players = getplayers(tabledata.singles);
+
+  var template = $.templates("#rowTemplate");
+  var htmlOutput = template.render(players);
+
+  $("#s_tbl").html(htmlOutput);
+
+//  players = getplayers(tabledata.doubles);
+//  template = $.templates("#rowTemplate");
+//  htmlOutput = template.render(players);
+
+//  $("#d_tbl").html(htmlOutput);
+}
+
+
+function getplayers(data)
+{
+  var players = [ ];
+
+  for (var i = 0; i < data.length; i++)
+  {
+    var t_row = data[i]
+    var id_padding_str = '';
+
+    for (var ii = 0; ii < (4 - t_row.id.length); ii++)
+    {
+      id_padding_str = id_padding_str + '&nbsp;';
+    }
+
+    // note that we modify the run array... could use filter instead if we need to change that
+    var gameruna = t_row.run;
+    if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
+
+//    var gameruna = t_row.run.splice(Math.min(t_row.run.length - 10, t_row.run.length), 
+  //                                  Math.min(t_row.run.length, 10));
+    var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
+
+    var p_row = { pos: pad_i(i+1,2),
+                  id: t_row.id, 
+                  pad_rank: pad_i(t_row.rank, 4), 
+                  pad_change: '    ', //pad_i(t_row.change, 4),
+		  id_padding: id_padding_str,
+                  record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
+		  gamerun: pad_s(gamerun,10)  };
+
+    players[i] = p_row;		 
+  }
+
+  return players;
+}
+
+//
+// example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
+//
+function Player(id) // id is their initials
+{
+  // creates a new, empty Player
+  this.id = id;
+
+  this.rank = 1600; // starts at 1600
+  this.winp = 0;
+  this.run = [];
+  this.wins = 0;
+  
+  // runs
+  this.maxwrun = 0;
+  this.maxlrun = 0;
+  this.cwrun = 0; // current win run
+  this.clrun = 0; // current loss run
+
+  this.ptsrecord = [ ];
+
+  // lowest ever score
+  this.lowest = 1600;
+
+  // highest ever score
+  this.highest = 1600;
+
+  this.addResult = function(delta)
+  {
+    this.rank = this.rank + delta;
+
+    if (delta < 0)
+    {
+      // a loss
+      this.run.push("l");
+
+      this.cwrun = 0;
+      this.clrun = this.clrun + 1;
+
+      // is this a maximal loss run?
+      if (this.clrun > this.maxlrun) { this.maxlrun = this.clrun; }
+
+      if (this.rank < this.lowest) { this.lowest = this.rank; }
+    } 
+    else
+    {
+      this.run.push("w");
+      this.wins = this.wins + 1;
+
+      this.clrun = 0;
+      this.cwrun = this.cwrun + 1;
+
+      // is this a maximal win run?
+      if (this.cwrun > this.maxwrun) { this.maxwrun = this.cwrun; }
+
+      if (this.rank > this.highest) { this.highest = this.rank; }
+    }
+
+    // store the current points
+    this.ptsrecord.push(this.rank);
+
+    this.winp = this.wins/this.run.length * 100;
+
+    // this player was active.  So let's look them up in the activity list.
+    var i = activitylist.indexOf(this.id);
+
+    if (i >= 0)
+    {
+      // remove it
+      activitylist.splice(i,1);
+    }
+
+    // add on the end
+    activitylist.push(this.id);
+  }
+}
+
+//
+// function: loadjsondata
+//
+// params: none
+// returns: nothing
+//
+// loads the json data into the global variable jsondata
+//
+function loadjsondata(url)
+{
+  // first load the Ajax; load the pics file @@jquery this?
+  var bob = new XMLHttpRequest(); 
+  bob.open("GET",url, false);
+  bob.send();
+
+  // for simplicity and size, the journal is a series of lines, of the form:
+  // { v: ['XXX'], l: ['YYY']},
+  // - XXX is the initials of the winner
+  // - YYY is the initials of the loser.
+  // if it's a doubles match, then each array will have two entries.
+  //
+  // we need to top and tail this into valid json to make an array... note that the last line has a comma, so we'll add an element and then drop
+  // it.  
+  var journaljson = eval('(' + bob.responseText + ')');
+
+  var journal = journaljson.data;
+
+  var singles = [];
+  var doubles = [];
+
+  // clear the activity data
+  activitylist = [];
+
+  for (var i = 0; i < journal.length; i++)
+  {
+    // obtain the participants.
+    var v = journal[i].v;
+    var l = journal[i].l;
+ 
+    var vrank = 0;
+    var lrank = 0;
+
+    // doubles or singles?  Work out the winning ranking.
+    if ((v.length != l.length) || (v.length < 1) || (v.length > 2)) { continue; }
+    if (v.length == 1)
+    {
+      v[0] = v[0].trim();
+      l[0] = l[0].trim();
+
+      // singles
+      if (!(v[0] in singles))
+      {
+        singles[v[0]] = new Player(v[0]);
+      }
+
+      if (!(l[0] in singles))
+      {
+        singles[l[0]] = new Player(l[0]);
+      }
+
+      vrank = singles[v[0]].rank;
+      lrank = singles[l[0]].rank;
+
+      // compute the delta
+      var delta = compute_elo(vrank, lrank);
+
+      // update the rankings
+      singles[v[0]].addResult(delta);
+      singles[l[0]].addResult(0-delta);
+    }
+    else
+    {
+      v[0] = v[0].trim();
+      l[0] = l[0].trim();
+      v[1] = v[1].trim();
+      l[1] = l[1].trim();
+
+      // doubles - average the two
+      if (!(v[0] in doubles))
+      {
+        doubles[v[0]] = new Player(v[0]);
+      }
+      if (!(v[1] in doubles))
+      {
+        doubles[v[1]] = new Player(v[1]);
+      }
+      if (!(l[0] in doubles))
+      {
+        doubles[l[0]] = new Player(l[0]);
+      }
+      if (!(l[1] in doubles))
+      {
+        doubles[l[1]] = new Player(l[1]);
+      }
+
+      var v0 = doubles[v[0]];
+      var v1 = doubles[v[1]];
+      var l0 = doubles[l[0]];
+      var l1 = doubles[l[1]];
+
+      // compute the delta
+      vrank = (v0.rank + v1.rank) / 2;
+      lrank = (l0.rank + l1.rank) / 2;
+
+      // compute the delta
+      var delta = compute_elo(vrank, lrank);
+
+      // update the rankings
+      v0.addResult(delta);
+      v1.addResult(delta);
+      l0.addResult(-delta);
+      l1.addResult(-delta);
+    }
+  }
+
+  activitylist = activitylist.splice(activitylist.length-table_length,table_length);
+
+  // annoyingly, we now need to turn singles into an array with INDEXES.  Javascript is annoying sometimes - and otherwise length doesn't work... neither does sort, or any of the other functions.
+  var asingles = convertArray(singles);
+  var adoubles = convertArray(doubles);
+
+  // remember the full set for later
+  s_db = singles;
+  d_db = doubles;
+
+  // now we need to filter the arrays for just the most recently active players.
+  asingles = asingles.filter(function(v) 
+    {
+      if (this.indexOf(v.id) < 0) { return false; }
+        return true;
+    }, activitylist);
+
+  adoubles = adoubles.filter(function(v) 
+    {
+      if (this.indexOf(v.id) < 0) { return false; }
+        return true;
+    }, activitylist);
+
+  asingles.sort(function(a,b)
+    { 
+      return b.rank - a.rank; 
+    });
+
+  adoubles.sort(function(a,b)
+    { 
+      return b.rank - a.rank; 
+    });
+
+  tabledata = { singles: asingles, doubles: adoubles };
+}
+
+// convert a hash-array into an actual array
+function convertArray(h)
+{
+  var a = [];
+  for (var k in h)
+  {
+    a.push(h[k]);
+  }
+
+  return a;
+}
+
+var kFactor = 32;
+function compute_elo(w, l)
+{
+  var diff  = l - w;
+  var expectedScoreWinner = 1 / ( 1 + Math.pow(10, diff/400) );
+
+  var e = kFactor * (1 - expectedScoreWinner);
+
+  return e;
+}
+
+function create_stats()
+{
+
+  // what player do we want? URL format is player.html/INITIALS
+  var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
+
+  // find the player in the complete player database
+  sp = s_db[playerid];
+  dp = d_db[playerid];
+
+  // fill in the fields from the player object
+
+  if (typeof sp === "undefined")
+  {
+    $("#singles_min").text('');
+    $("#singles_max").text('');
+
+    $("#current_singles_run").text('');
+    $("#best_singles_run").text('');
+    $("#worst_singles_run").text('');    
+  }
+  else
+  {
+    $("#singles_min").text(Math.floor(sp.lowest));
+    $("#singles_max").text(Math.floor(sp.highest));
+
+    $("#current_singles_run").text(sp.cwrun);
+    $("#best_singles_run").text(sp.maxwrun);
+    $("#worst_singles_run").text(sp.maxlrun);
+
+  // chart time; include the last 100 games; if there are less, simply put 0
+  var datapts = [];
+
+  if (sp.ptsrecord.length < 100) 
+  {
+    for (var i = 0; i < (100-sp.ptsrecord.length); i++)
+    {
+      datapts.push(1600);
+    }
+
+    datapts = datapts.concat(sp.ptsrecord);
+  }
+  else
+  {
+    // only want the last few; so copy those in
+    for (var i = (sp.ptsrecord.length - 100); i < sp.ptsrecord.length; i++)
+    {
+      datapts.push(sp.ptsrecord[i]);
+    }
+  }
+
+    var labels = []
+    for (var i = 0; i< 100; i++)
+    {
+      labels.push(" ");
+    } 
+ 
+    var ctx = $("#singles_chart").get(0).getContext("2d");
+
+    var data = {
+      labels : labels,
+      datasets: [
+       {
+         label: "singles",
+         fillColor: "rgba(220,220,220,0.5)",
+         strokeColor: "rgba(220,220,220,0.8)",
+         data: datapts
+       }
+       ]
+    }; 
+
+    var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } ); //, options);
+  }
+
+  if (typeof dp === "undefined")
+  {
+    $("#doubles_min").text('');
+    $("#doubles_max").text('');
+    $("#current_doubles_run").text('');
+    $("#best_doubles_run").text('');
+    $("#worst_doubles_run").text(''); 
+  }
+  else
+  {
+    $("#doubles_min").text(Math.floor(dp.lowest));
+    $("#doubles_max").text(Math.floor(dp.highest));
+    $("#current_doubles_run").text(dp.cwrun);
+    $("#best_doubles_run").text(dp.maxwrun);
+    $("#worst_doubles_run").text(dp.maxlrun);
+    
+    var datapts = [];
+
+    if (dp.ptsrecord.length < 100) 
+    {
+      for (var i = 0; i < (100-dp.ptsrecord.length); i++)
+      {
+        datapts.push(1600);
+      }
+
+      datapts = datapts.concat(dp.ptsrecord);
+    }
+    else
+    {
+      // only want the last few; so copy those in
+      for (var i = (dp.ptsrecord.length - 100); i < dp.ptsrecord.length; i++)
+      {
+        datapts.push(dp.ptsrecord[i]);
+      }
+    }
+
+    var ctx = $("#doubles_chart").get(0).getContext("2d");
+
+    var data = {
+      labels : labels,
+      datasets: [
+       {
+         label: "doubles",
+         fillColor: "rgba(220,220,220,0.5)",
+         strokeColor: "rgba(220,220,220,0.8)",
+         data: datapts
+       }
+       ]
+    }; 
+
+    var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } );
+  }
+
+  $(".id").text(playerid);
+}
+
+function addClickHandlers()
+{
+  $("#addsingles").click(function() {
+    // need to get the values for the winner and loser parameters
+    var sw1 = $("#sw1").val().toUpperCase();
+    var sl1 = $("#sl1").val().toUpperCase();
+
+    clearInputs();
+
+    loadjsondata("addgame?winner1="+sw1+"&loser1="+sl1);
+    drawtable();  
+  });
+}
+
+function clearInputs()
+{
+  $("#sw1").val('');
+  $("#sl1").val('');
+}

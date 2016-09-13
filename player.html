@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <script src="json2.js"> </script> <!-- this to make IE work -->
+  <script src="jquery-1.10.2.min.js"> </script>
+  <script src="jsrender.js"> </script>
+  <script src="footy.js"> </script>
+  <script src="Chart.js"> </script>
+
+  <link rel="stylesheet" href="footy.css" />
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+
+  <title>Table Tennis - player stats</title>
+</head>
+
+<body>
+
+<script>
+
+$( document ).ready(function() { 
+
+startup();
+
+create_stats();
+
+});
+
+</script>
+
+<h1>Player stats - <span class="id"></span></h1>
+
+<hr>
+
+<span class="id"></span> rating range: <span id="singles_min">1600</span>-<span id="singles_max">2298</span>
+
+<ul>
+<li>Current run: <span id="current_singles_run">22</span> win(s) 
+<li>Best run: <span id="best_singles_run">70</span> win(s) 
+<li>Worst run: <span id="worst_singles_run">5</span> loss(es)
+</ul>
+
+<canvas id="singles_chart" width="600" height="300"></canvas>

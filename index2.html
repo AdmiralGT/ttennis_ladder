@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <script src="json2.js"> </script> <!-- this to make IE work -->
+  <script src="jquery-1.10.2.min.js"> </script>
+  <script src="jsrender.js"> </script>
+  <script src="footy.js"> </script>
+  <link rel="stylesheet" href="footy.css" />
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+
+  <title>Table Tennis</title>
+</head>
+
+<body>
+<script>
+
+$("#addsingles").click(function(){ alert("yo"); });
+
+$( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
+
+</script>
+
+<h1>Table Tennis Rankings</h1>
+<hr>
+<div class="resultadder"> <!-- spacer --> &nbsp; </div>
+
+<div class="resultadder">
+<ul>
+<li>Add a result: <input type="text" value="" name="winner1" id="sw1"> bt <input id="sl1" type="text" value="" name="loser1">
+<span id="addsingles">Add</span>
+<li>&nbsp;
+</ul>
+<hr>
+
+<div id="outer_tbl">
+  
+  <div id="outer_s_tbl" class="res_tbl">
+    <div class="hdr">Pos&nbsp;Rating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Record&nbsp;&nbsp;Past&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div id="s_tbl">
+      <div id="player" class="playerrow"></div>
+    </div>
+  </div>
+</div>
+
+<script id="rowTemplate" type="text/x-jsrender">
+    <div id="player" class="playerrow
+{{if ((pos % 10) == 0)}}
+ playerrow10
+{{/if}}
+">
+      {{if (pos == '&nbsp;' + 1)}}
+        <p style="color:gold">
+      {{/if}}
+      {{if (pos == '&nbsp;' + 2)}}
+        <p style="color:silver">
+      {{/if}}
+      {{if (pos == '&nbsp;' + 3)}}
+        <p style="color:chocolate">
+      {{/if}}
+
+      <span class="pos">{{:pos}}</span>
+      <span class="rank">{{:pad_rank}}</span>
+      &nbsp;
+      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
+      &nbsp;
+      {{:record}}
+      &nbsp;
+      {{:gamerun}}
+    </div>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+div.resultadder
+{
+  clear: center;
+  float: center;
+  text-align: center;
+}
+
+ul
+{
+  list-style-type:none	
+}
+
+body
+{
+  font-family: 'Courier New', fixed, sans-serif;
+  font-size: small;
+  text-align: center;  
+}
+
+.rank
+{
+  font-weight: bold;
+}
+
+.hdr
+{
+  font-style: italic;
+  font-weight: bold;
+}
+
+a.idlink
+{
+  font-weight: bold;
+}
+
+.res_tbl
+{
+  width: 400px;
+}
+
+#outer_tbl
+{
+  width: 400px;
+  margin: 0 auto;
+}
+
+#outer_s_tbl
+{
+  float: center;
+  margin-right: 20px;
+}
+
+#outer_d_tbl
+{
+  float: left; 
+  margin-left: 20px;
+}
+
+hr
+{
+  width: 90%;
+  clear: left;
+}
+.playerrow10
+{
+  margin-bottom: 15px; 
+}
