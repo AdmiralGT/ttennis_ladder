@@ -1,3 +1,8 @@
-sudo pip install pickledb
-Requirement already satisfied (use --upgrade to upgrade): cherrypy in /usr/local/lib/python2.7/dist-packages
-Cleaning up...
+A Table Tennis ladder
+
+Start the server by running "./start" or "python resting.py". resting.py may
+need to be changed to choose a valid port and server host.
+
+Dependencies:
+- cherrypy
+- pickledb
