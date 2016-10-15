@@ -64,7 +64,7 @@ function drawtable()
 
   // example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
 
-  // need in the item s_players, 
+  // need in the item s_players,
   // {{:pad_rank}}   - padded to 4
   // {{:pad_change}} - padded to 4
   // {{:id}} - unpadded initials
@@ -107,19 +107,19 @@ function getplayers(data)
     var gameruna = t_row.run;
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
 
-//    var gameruna = t_row.run.splice(Math.min(t_row.run.length - 10, t_row.run.length), 
+//    var gameruna = t_row.run.splice(Math.min(t_row.run.length - 10, t_row.run.length),
   //                                  Math.min(t_row.run.length, 10));
     var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
 
     var p_row = { pos: pad_i(i+1,2),
-                  id: t_row.id, 
-                  pad_rank: pad_i(t_row.rank, 4), 
+                  id: t_row.id,
+                  pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
 		  id_padding: id_padding_str,
                   record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
 		  gamerun: pad_s(gamerun,10)  };
 
-    players[i] = p_row;		 
+    players[i] = p_row;
   }
 
   return players;
@@ -137,7 +137,7 @@ function Player(id) // id is their initials
   this.winp = 0;
   this.run = [];
   this.wins = 0;
-  
+
   // runs
   this.maxwrun = 0;
   this.maxlrun = 0;
@@ -168,7 +168,7 @@ function Player(id) // id is their initials
       if (this.clrun > this.maxlrun) { this.maxlrun = this.clrun; }
 
       if (this.rank < this.lowest) { this.lowest = this.rank; }
-    } 
+    }
     else
     {
       this.run.push("w");
@@ -213,7 +213,7 @@ function Player(id) // id is their initials
 function loadjsondata(url)
 {
   // first load the Ajax; load the pics file @@jquery this?
-  var bob = new XMLHttpRequest(); 
+  var bob = new XMLHttpRequest();
   bob.open("GET",url, false);
   bob.send();
 
@@ -224,7 +224,7 @@ function loadjsondata(url)
   // if it's a doubles match, then each array will have two entries.
   //
   // we need to top and tail this into valid json to make an array... note that the last line has a comma, so we'll add an element and then drop
-  // it.  
+  // it.
   var journaljson = eval('(' + bob.responseText + ')');
 
   var journal = journaljson.data;
@@ -240,7 +240,7 @@ function loadjsondata(url)
     // obtain the participants.
     var v = journal[i].v;
     var l = journal[i].l;
- 
+
     var vrank = 0;
     var lrank = 0;
 
@@ -328,26 +328,26 @@ function loadjsondata(url)
   d_db = doubles;
 
   // now we need to filter the arrays for just the most recently active players.
-  asingles = asingles.filter(function(v) 
+  asingles = asingles.filter(function(v)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
     }, activitylist);
 
-  adoubles = adoubles.filter(function(v) 
+  adoubles = adoubles.filter(function(v)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
     }, activitylist);
 
   asingles.sort(function(a,b)
-    { 
-      return b.rank - a.rank; 
+    {
+      return b.rank - a.rank;
     });
 
   adoubles.sort(function(a,b)
-    { 
-      return b.rank - a.rank; 
+    {
+      return b.rank - a.rank;
     });
 
   tabledata = { singles: asingles, doubles: adoubles };
@@ -395,21 +395,52 @@ function create_stats()
 
     $("#current_singles_run").text('');
     $("#best_singles_run").text('');
-    $("#worst_singles_run").text('');    
+    $("#worst_singles_run").text('');
   }
   else
   {
     $("#singles_min").text(Math.floor(sp.lowest));
     $("#singles_max").text(Math.floor(sp.highest));
 
-    $("#current_singles_run").text(sp.cwrun);
-    $("#best_singles_run").text(sp.maxwrun);
-    $("#worst_singles_run").text(sp.maxlrun);
+    if (sp.cwrun > 1)
+    {
+      $("#current_singles_run").text(sp.cwrun + " wins");
+    }
+    else if (sp.cwrun > 0)
+    {
+      $("#current_singles_run").text(sp.cwrun + " win");
+    }
+    else if (sp.clrun > 1)
+    {
+      $("#current_singles_run").text(sp.clrun + " losses");
+    }
+    else
+    {
+      $("#current_singles_run").text(sp.clrun + " loss");
+    }
+
+    if (sp.maxwrun == 1)
+    {
+      $("#best_singles_run").text(sp.maxwrun + " win");
+    }
+    else
+    {
+      $("#best_singles_run").text(sp.maxwrun + " wins");
+    }
+
+    if (sp.maxlrun == 1)
+    {
+      $("#worst_singles_run").text(sp.maxlrun = " loss");
+    }
+    else
+    {
+      $("#worst_singles_run").text(sp.maxlrun + " losses");
+    }
 
   // chart time; include the last 100 games; if there are less, simply put 0
   var datapts = [];
 
-  if (sp.ptsrecord.length < 100) 
+  if (sp.ptsrecord.length < 100)
   {
     for (var i = 0; i < (100-sp.ptsrecord.length); i++)
     {
@@ -431,8 +462,8 @@ function create_stats()
     for (var i = 0; i< 100; i++)
     {
       labels.push(" ");
-    } 
- 
+    }
+
     var ctx = $("#singles_chart").get(0).getContext("2d");
 
     var data = {
@@ -445,7 +476,7 @@ function create_stats()
          data: datapts
        }
        ]
-    }; 
+    };
 
     var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } ); //, options);
   }
@@ -456,7 +487,7 @@ function create_stats()
     $("#doubles_max").text('');
     $("#current_doubles_run").text('');
     $("#best_doubles_run").text('');
-    $("#worst_doubles_run").text(''); 
+    $("#worst_doubles_run").text('');
   }
   else
   {
@@ -465,10 +496,10 @@ function create_stats()
     $("#current_doubles_run").text(dp.cwrun);
     $("#best_doubles_run").text(dp.maxwrun);
     $("#worst_doubles_run").text(dp.maxlrun);
-    
+
     var datapts = [];
 
-    if (dp.ptsrecord.length < 100) 
+    if (dp.ptsrecord.length < 100)
     {
       for (var i = 0; i < (100-dp.ptsrecord.length); i++)
       {
@@ -498,7 +529,7 @@ function create_stats()
          data: datapts
        }
        ]
-    }; 
+    };
 
     var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } );
   }
@@ -516,7 +547,7 @@ function addClickHandlers()
     clearInputs();
 
     loadjsondata("addgame?winner1="+sw1+"&loser1="+sl1);
-    drawtable();  
+    drawtable();
   });
 }
 
