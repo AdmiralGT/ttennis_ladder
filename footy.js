@@ -478,7 +478,7 @@ function create_stats()
        ]
     };
 
-    var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } ); //, options);
+    var schart = new Chart(ctx).Line(data, { scaleBeginAtZero: false } ); //, options);
   }
 
   if (typeof dp === "undefined")
