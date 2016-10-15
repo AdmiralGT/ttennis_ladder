@@ -1,7 +1,7 @@
 
 
 // how many people to put in the table?
-var table_length = 500;
+var table_length = 35;
 
 var tabledata;
 
