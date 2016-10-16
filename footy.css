@@ -43,6 +43,13 @@ a.idlink
   width: 400px;
 }
 
+/* Results table on a Player Page */
+.results_tbl_pPage
+{
+  float: right;
+  width: 400px;
+}
+
 #outer_tbl
 {
   width: 1000px;
@@ -61,6 +68,12 @@ a.idlink
   float: left;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+#player_page
+{
+  width: 1200px;
+  margin: 0 auto;
 }
 
 hr

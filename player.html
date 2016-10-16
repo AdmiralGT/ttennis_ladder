@@ -23,6 +23,8 @@ $( document ).ready(function() {
 
 startup();
 
+draw_player_res_table();
+
 create_stats();
 
 });
@@ -41,4 +43,35 @@ create_stats();
 <li>Worst run: <span id="worst_singles_run">5</span>
 </ul>
 
-<canvas id="singles_chart" width="1000" height="500"></canvas>
+<div id="player_page" class="player_page">
+  <canvas id="singles_chart" width="800" height="400"></canvas>
+
+  <div id="player_rec_res_tbl" class="results_tbl_pPage">
+    <div class="hdr">Recent Results</div>
+    <div id="rec_res_tbl">
+      <div id="result" class="resultrow"></div>
+    </div>
+  </div>
+</div>
+
+<script id="resultTemplate" type="text/x-jsrender">
+    <div id="result" class="resultrow">
+      <font color="green">
+      <span class="v_delta">(+{{:delta}})</span>
+      </font>
+      <span class="v_rank">{{:v_rank}}</span>
+      &nbsp;
+      <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>{{:v_id_padding}}
+      &nbsp;
+      beat
+      &nbsp;
+      <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>{{:l_id_padding}}
+      &nbsp;
+      <span class="l_rank">{{:l_rank}}</span>
+      <font color="red">
+      <span class="v_delta">(-{{:delta}})</span>
+      </font>
+    </div>
+</script>
+
+

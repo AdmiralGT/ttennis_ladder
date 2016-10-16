@@ -50,6 +50,7 @@ function pad_s(str, len)
     return str;
   }
 }
+
 //
 // function: drawtable
 //
@@ -95,6 +96,27 @@ function drawtable()
 //  $("#d_tbl").html(htmlOutput);
 }
 
+//
+// function: draw_player_res_table
+//
+// function to draw a recent results table for a given player, using the template
+//
+// params: none
+//
+// returns: nothing
+//
+function draw_player_res_table()
+{
+  // what player do we want? URL format is player.html/INITIALS
+  var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
+  var results = get_player_results(recent_results, playerid);
+
+  var recent_res_template = $.templates("#resultTemplate");
+  var htmlOutput = recent_res_template.render(results);
+
+  $("#player_rec_res_tbl").html(htmlOutput);
+}
+
 
 function getplayers(data)
 {
@@ -136,7 +158,6 @@ function getplayers(data)
 function getresults(data)
 {
   var results = [ ];
-  var jj = 0;
   var num_recent_results = 20;
 
   for (var i = data.length - num_recent_results; i < data.length; i++)
@@ -161,14 +182,62 @@ function getresults(data)
                   l_id_padding: l_id_padding_str,
                   v_rank: pad_i(t_row.w_rank),
                   l_rank: pad_i(t_row.l_rank),
-                  delta: pad_i(t_row.delta, 2),
+                  delta: Math.floor(t_row.delta),
                 };
 
-    jj++
-    results[num_recent_results - jj] = p_row;
+    results.unshift(p_row);
   }
 
   return results;
+}
+
+function get_player_results(data, id)
+{
+  var results = [ ];
+  var jj = 0;
+  // Conceivably when we get a large number of games in the database this could
+  // slow performance.
+  var results_to_search = 500;
+  var results_to_display = 25;
+
+  for (var i = data.length - results_to_search; i < data.length; i++)
+  {
+    var t_row = data[i]
+    var v_id_padding_str = '';
+    var l_id_padding_str = '';
+
+    if ((id == t_row.winner) || (id == t_row.loser))
+    {
+      for (var ii = 0; ii < (4 - t_row.winner.length); ii++)
+      {
+        v_id_padding_str = v_id_padding_str + '&nbsp;';
+      }
+      for (var ii = 0; ii < (4 - t_row.loser.length); ii++)
+      {
+        l_id_padding_str = l_id_padding_str + '&nbsp;';
+      }
+
+
+      var p_row = { v_id: t_row.winner,
+                    l_id: t_row.loser,
+                    v_id_padding: v_id_padding_str,
+                    l_id_padding: l_id_padding_str,
+                    v_rank: pad_i(t_row.w_rank),
+                    l_rank: pad_i(t_row.l_rank),
+                    delta: Math.floor(t_row.delta),
+                  };
+
+      jj++
+      results.unshift(p_row);
+
+      if (jj == results_to_display)
+      {
+        return results;
+      }
+    }
+  }
+  return results;
+
 }
 
 //
