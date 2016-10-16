@@ -395,7 +395,13 @@ function loadjsondata(url)
       singles[v[0]].addResult(delta);
       singles[l[0]].addResult(0-delta);
 
-      recent_results.push(new Result(v[0], (vrank + delta), l[0], (lrank - delta), delta));
+      var new_vrank = singles[v[0]].rank;
+      var new_lrank = singles[l[0]].rank;
+
+      var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
+      var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta);
+
+      recent_results.push(result);
     }
     else
     {
