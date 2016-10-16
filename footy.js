@@ -194,7 +194,6 @@ function getresults(data)
 function get_player_results(data, id)
 {
   var results = [ ];
-  var jj = 0;
   // Conceivably when we get a large number of games in the database this could
   // slow performance.
   var results_to_search = 500;
@@ -227,17 +226,14 @@ function get_player_results(data, id)
                     delta: Math.floor(t_row.delta),
                   };
 
-      jj++
       results.unshift(p_row);
-
-      if (jj == results_to_display)
+      if (results.length > results_to_display)
       {
-        return results;
+        results.pop();
       }
     }
   }
   return results;
-
 }
 
 //
