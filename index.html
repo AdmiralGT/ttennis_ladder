@@ -42,9 +42,6 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
       <div id="player" class="playerrow"></div>
     </div>
   </div>
-</div>
-
-<div id="recent_results_tbl">
 
   <div id="recent_res_tbl" class="results_tbl">
     <div class="hdr">Recent Results</div>
@@ -84,7 +81,9 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 
 <script id="resultTemplate" type="text/x-jsrender">
     <div id="result" class="resultrow">
+      <font color="green">
       <span class="v_delta">(+{{:delta}})</span>
+      </font>
       <span class="v_rank">{{:v_rank}}</span>
       &nbsp;
       <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>{{:v_id_padding}}
@@ -94,7 +93,9 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
       <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>{{:l_id_padding}}
       &nbsp;
       <span class="l_rank">{{:l_rank}}</span>
+      <font color="red">
       <span class="v_delta">(-{{:delta}})</span>
+      </font>
     </div>
 </script>
 
