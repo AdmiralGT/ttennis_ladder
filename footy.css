@@ -45,20 +45,22 @@ a.idlink
 
 #outer_tbl
 {
-  width: 400px;
+  width: 1000px;
   margin: 0 auto;
 }
 
 #outer_s_tbl
 {
-  float: center;
+  float: left;
   margin-right: 20px;
+  margin-left: 60px;
 }
 
-#outer_d_tbl
+#recent_res_tbl
 {
   float: left;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 hr
