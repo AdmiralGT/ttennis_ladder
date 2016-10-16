@@ -7,14 +7,14 @@ div.resultadder
 
 ul
 {
-  list-style-type:none	
+  list-style-type:none
 }
 
 body
 {
   font-family: 'Courier New', fixed, sans-serif;
   font-size: small;
-  text-align: center;  
+  text-align: center;
 }
 
 .rank
@@ -38,6 +38,11 @@ a.idlink
   width: 400px;
 }
 
+.results_tbl
+{
+  width: 400px;
+}
+
 #outer_tbl
 {
   width: 400px;
@@ -52,7 +57,7 @@ a.idlink
 
 #outer_d_tbl
 {
-  float: left; 
+  float: left;
   margin-left: 20px;
 }
 
@@ -63,5 +68,5 @@ hr
 }
 .playerrow10
 {
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
 }
