@@ -29,9 +29,23 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 <div class="resultadder">
 <ul>
 <li>Add a result: <input type="text" value="" name="winner1" id="sw1"> bt <input id="sl1" type="text" value="" name="loser1">
-<button id="addsingles">Add</button>
-<li>&nbsp;
+  <button id="addsingles">Add</button>
+</li>
+<li>&nbsp;</li>
 </ul>
+</div>
+
+<div class="resultadder">
+<ul>
+<li>
+  Add results: <button id="add_single_left">Winner</button>
+  <input type="text" value="" name="l_player" id="player_left"> vs <input id="player_right" type="text" value="" name="r_player">
+  <button id="add_single_right">Winner</button>
+  <button id="clear_results_players">Clear</button>
+</li>
+<li>&nbsp;</li>
+</ul>
+</div>
 <hr>
 
 <div id="outer_tbl">

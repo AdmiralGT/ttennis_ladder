@@ -680,10 +680,37 @@ function addClickHandlers()
     loadjsondata("addgame?winner1="+sw1+"&loser1="+sl1);
     drawtable();
   });
+
+  $("#add_single_left").click(function() {
+    var player_left = $("#player_left").val().toUpperCase();
+    var player_right = $("#player_right").val().toUpperCase();
+
+    loadjsondata("addgame?winner1="+player_left+"&loser1="+player_right);
+    drawtable();
+  });
+
+  $("#add_single_right").click(function() {
+    var player_left = $("#player_left").val().toUpperCase();
+    var player_right = $("#player_right").val().toUpperCase();
+
+    loadjsondata("addgame?winner1="+player_right+"&loser1="+player_left);
+    drawtable();
+  });
+
+  $("#clear_results_players").click(function() {
+    clear_results_inputs();
+  });
 }
 
 function clearInputs()
 {
   $("#sw1").val('');
   $("#sl1").val('');
+  clear_results_inputs();
+}
+
+function clear_results_inputs()
+{
+  $("#player_left").val('');
+  $("#player_right").val('');
 }
