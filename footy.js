@@ -4,6 +4,7 @@
 var table_length = 35;
 
 var tabledata;
+var recent_results = [];
 
 var activitylist = [];
 
@@ -75,11 +76,17 @@ function drawtable()
   // the template then executes for each of the elements in this.
 
   var players = getplayers(tabledata.singles);
+  var results = getresults(recent_results);
 
-  var template = $.templates("#rowTemplate");
+  var template = $.templates("#playerTemplate");
   var htmlOutput = template.render(players);
 
   $("#s_tbl").html(htmlOutput);
+
+  var recent_res_template = $.templates("#resultTemplate");
+  var htmlOutput = recent_res_template.render(results);
+
+  $("#rec_res_tbl").html(htmlOutput);
 
 //  players = getplayers(tabledata.doubles);
 //  template = $.templates("#rowTemplate");
@@ -115,14 +122,65 @@ function getplayers(data)
                   id: t_row.id,
                   pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
-		  id_padding: id_padding_str,
+		              id_padding: id_padding_str,
                   record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
-		  gamerun: pad_s(gamerun,10)  };
+		              gamerun: pad_s(gamerun,10)
+                };
 
     players[i] = p_row;
   }
 
   return players;
+}
+
+function getresults(data)
+{
+  var results = [ ];
+  var jj = 0;
+  var num_recent_results = 20;
+
+  for (var i = data.length - num_recent_results; i < data.length; i++)
+  {
+    var t_row = data[i]
+    var v_id_padding_str = '';
+    var l_id_padding_str = '';
+
+    for (var ii = 0; ii < (4 - t_row.winner.length); ii++)
+    {
+      v_id_padding_str = v_id_padding_str + '&nbsp;';
+    }
+    for (var ii = 0; ii < (4 - t_row.loser.length); ii++)
+    {
+      l_id_padding_str = l_id_padding_str + '&nbsp;';
+    }
+
+
+    var p_row = { v_id: t_row.winner,
+                  l_id: t_row.loser,
+                  v_id_padding: v_id_padding_str,
+                  l_id_padding: l_id_padding_str,
+                  v_rank: pad_i(t_row.w_rank),
+                  l_rank: pad_i(t_row.l_rank),
+                  delta: pad_i(t_row.delta, 2),
+                };
+
+    jj++
+    results[num_recent_results - jj] = p_row;
+  }
+
+  return results;
+}
+
+//
+// example recent result row   { winner: "GRT", w_rank: 1620, loser: "DC4", l_rank: 1580, delay: 20 },
+//
+function Result(winner, w_rank, loser, l_rank, delta)
+{
+  this.winner = winner;
+  this.w_rank = w_rank;
+  this.loser = loser;
+  this.l_rank = l_rank;
+  this.delta = delta;
 }
 
 //
@@ -139,8 +197,8 @@ function Player(id) // id is their initials
   this.wins = 0;
 
   // runs
-  this.maxwrun = 0;
-  this.maxlrun = 0;
+  this.maxwrun = 0; // longest win run
+  this.maxlrun = 0; // longest loss run
   this.cwrun = 0; // current win run
   this.clrun = 0; // current loss run
 
@@ -271,6 +329,8 @@ function loadjsondata(url)
       // update the rankings
       singles[v[0]].addResult(delta);
       singles[l[0]].addResult(0-delta);
+
+      recent_results.push(new Result(v[0], (vrank + delta), l[0], (lrank - delta), delta));
     }
     else
     {

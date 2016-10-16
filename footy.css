@@ -7,14 +7,14 @@ div.resultadder
 
 ul
 {
-  list-style-type:none	
+  list-style-type:none
 }
 
 body
 {
   font-family: 'Courier New', fixed, sans-serif;
   font-size: small;
-  text-align: center;  
+  text-align: center;
 }
 
 .rank
@@ -38,22 +38,29 @@ a.idlink
   width: 400px;
 }
 
-#outer_tbl
+.results_tbl
 {
   width: 400px;
+}
+
+#outer_tbl
+{
+  width: 1000px;
   margin: 0 auto;
 }
 
 #outer_s_tbl
 {
-  float: center;
+  float: left;
   margin-right: 20px;
+  margin-left: 60px;
 }
 
-#outer_d_tbl
+#recent_res_tbl
 {
-  float: left; 
+  float: left;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 hr
@@ -63,5 +70,5 @@ hr
 }
 .playerrow10
 {
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
 }
