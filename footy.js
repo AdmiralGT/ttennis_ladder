@@ -1,7 +1,7 @@
 
 
 // how many people to put in the table?
-var table_length = 35;
+var table_length = 28;
 
 var tabledata;
 var recent_results = [];
