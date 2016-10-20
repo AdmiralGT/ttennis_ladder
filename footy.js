@@ -202,27 +202,58 @@ function get_player_results(data, id)
   for (var i = data.length - results_to_search; i < data.length; i++)
   {
     var t_row = data[i]
-    var v_id_padding_str = '';
-    var l_id_padding_str = '';
+    var id_padding_str = '';
+    var opp_padding_str = '';
+    var opponent = '';
+    var result_str = 'loss vs'
 
     if ((id == t_row.winner) || (id == t_row.loser))
     {
-      for (var ii = 0; ii < (4 - t_row.winner.length); ii++)
+      if ((id == t_row.winner))
       {
-        v_id_padding_str = v_id_padding_str + '&nbsp;';
+        // The player won
+        opponent = t_row.loser;
+        result_str = '&nbspwin vs';
+        id_res = '+'
+        id_colour = 'green'
+        id_rank = pad_i(t_row.w_rank)
+        opp_res = '-'
+        opp_colour = 'red'
+        opp_rank = pad_i(t_row.l_rank)
       }
-      for (var ii = 0; ii < (4 - t_row.loser.length); ii++)
+      else
       {
-        l_id_padding_str = l_id_padding_str + '&nbsp;';
+        // Opponent won
+        opponent = t_row.winner;
+        id_res = '-'
+        id_colour = 'red'
+        id_rank = pad_i(t_row.l_rank)
+        opp_res = '+'
+        opp_colour = 'green'
+        opp_rank = pad_i(t_row.w_rank)
+      }
+
+      for (var ii = 0; ii < (4 - id.length); ii++)
+      {
+        id_padding_str = id_padding_str + '&nbsp;';
+      }
+      for (var ii = 0; ii < (4 - opponent.length); ii++)
+      {
+        opp_padding_str = opp_padding_str + '&nbsp;';
       }
 
 
-      var p_row = { v_id: t_row.winner,
-                    l_id: t_row.loser,
-                    v_id_padding: v_id_padding_str,
-                    l_id_padding: l_id_padding_str,
-                    v_rank: pad_i(t_row.w_rank),
-                    l_rank: pad_i(t_row.l_rank),
+      var p_row = { id: id,
+                    id_colour: id_colour,
+                    id_padding: id_padding_str,
+                    id_rank: id_rank,
+                    id_res: id_res,
+                    opponent: opponent,
+                    opp_colour: opp_colour,
+                    opp_padding: opp_padding_str,
+                    opp_rank: opp_rank,
+                    opp_res: opp_res,
+                    result: result_str,
                     delta: Math.floor(t_row.delta),
                   };
 
