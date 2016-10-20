@@ -592,12 +592,25 @@ function create_stats()
 
     if (sp.maxlrun == 1)
     {
-      $("#worst_singles_run").text(sp.maxlrun = " loss");
+      $("#worst_singles_run").text(sp.maxlrun + " loss");
     }
     else
     {
       $("#worst_singles_run").text(sp.maxlrun + " losses");
     }
+
+    $("#total_wins").text(sp.wins + " wins");
+    if (sp.wins == 1)
+    {
+      $("#total_wins").text(sp.wins + " win");
+    }
+
+    $("#total_losses").text((sp.run.length - sp.wins) + " losses");
+    if (sp.run.length - sp.wins == 1)
+    {
+      $("#total_losses").text((sp.run.length - sp.wins) + " loss");
+    }
+    $("#win_percentage").text((Math.round(sp.winp * 10) / 10) + "%");
 
   // chart time; include the last 100 games; if there are less, simply put 0
   var datapts = [];
