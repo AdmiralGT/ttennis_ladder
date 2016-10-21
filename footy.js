@@ -86,13 +86,19 @@ function drawtable()
 
   // the template then executes for each of the elements in this.
 
-  var players = getplayers(tabledata.singles);
+  var active_players = getplayers(tabledata.singles, 0);
+  var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
   var results = getresults(all_results);
 
   var template = $.templates("#playerTemplate");
-  var htmlOutput = template.render(players);
+  var htmlOutput = template.render(active_players);
 
   $("#s_tbl").html(htmlOutput);
+
+  var template = $.templates("#inactive_player_template");
+  var htmlOutput = template.render(inactive_players);
+
+  $("#inactive_tbl").html(htmlOutput);
 
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results);
@@ -128,7 +134,7 @@ function draw_player_res_table()
 }
 
 
-function getplayers(data)
+function getplayers(data, offset)
 {
   var players = [ ];
 
@@ -150,7 +156,7 @@ function getplayers(data)
   //                                  Math.min(t_row.run.length, 10));
     var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
 
-    var p_row = { pos: pad_i(i+1,2),
+    var p_row = { pos: pad_i(i+1+offset,2),
                   id: t_row.id,
                   pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
@@ -505,6 +511,7 @@ function loadjsondata(url)
 
   // annoyingly, we now need to turn singles into an array with INDEXES.  Javascript is annoying sometimes - and otherwise length doesn't work... neither does sort, or any of the other functions.
   var asingles = convertArray(singles);
+  var isingles = asingles.slice(0);
   var adoubles = convertArray(doubles);
 
   // remember the full set for later
@@ -518,6 +525,13 @@ function loadjsondata(url)
         return true;
     }, activity_list);
 
+  // now we need to filter the arrays for just the most recently active players.
+  isingles = isingles.filter(function(v)
+    {
+      if (this.indexOf(v.id) < 0) { return false; }
+        return true;
+    }, inactivity_list);
+
   adoubles = adoubles.filter(function(v)
     {
       if (this.indexOf(v.id) < 0) { return false; }
@@ -529,12 +543,17 @@ function loadjsondata(url)
       return b.rank - a.rank;
     });
 
+  isingles.sort(function(a,b)
+    {
+      return b.rank - a.rank;
+    });
+
   adoubles.sort(function(a,b)
     {
       return b.rank - a.rank;
     });
 
-  tabledata = { singles: asingles, doubles: adoubles };
+  tabledata = { singles: asingles, doubles: adoubles, inactive_singles: isingles };
 }
 
 // convert a hash-array into an actual array

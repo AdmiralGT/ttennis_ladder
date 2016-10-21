@@ -70,6 +70,14 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   </div>
 </div>
 
+<div id="outer_tbl">
+
+  <div id="outer_s_tbl" class="res_tbl">
+    <div id="inactive_tbl">
+      <div id="player" class="playerrow"></div>
+    </div>
+  </div>
+</div>
 
 <script id="playerTemplate" type="text/x-jsrender">
     <div id="player" class="playerrow
@@ -86,6 +94,24 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
       {{if (pos == '&nbsp;' + 3)}}
         <p style="color:chocolate">
       {{/if}}
+
+      <span class="pos">{{:pos}}</span>
+      <span class="rank">{{:pad_rank}}</span>
+      &nbsp;
+      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
+      &nbsp;
+      {{:record}}
+      &nbsp;
+      {{:gamerun}}
+    </div>
+</script>
+
+<script id="inactive_player_template" type="text/x-jsrender">
+    <div id="player" class="playerrow 
+{{if ((pos % 10) == 0)}}
+ playerrow10
+{{/if}}
+" style="color:grey">
 
       <span class="pos">{{:pos}}</span>
       <span class="rank">{{:pad_rank}}</span>
