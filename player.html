@@ -35,16 +35,22 @@ create_stats();
 
 <hr>
 
-<span class="id"></span> rating range: <span id="singles_min">1600</span>-<span id="singles_max">2298</span>
+<div class="rating_bar"></div>
+  <div class="player_padding">&nbsp;</div>
+  <div class="player_padding">&nbsp;</div>
+  <div id="rating_range" class="player_rating_range">
+    <span class="id"></span> rating range: <span id="singles_min">1600</span>-<span id="singles_max">2298</span>
+  </div>
+  <div class="player_padding">&nbsp;</div>
+  <div id="home_page_link" class="home_page_link">
+    <a class="home_link" href="index.html">Return to ladder</a>
+  </div>
+</div>
 
 <ul>
 <li>Current run: <span id="current_singles_run"></span></li>
 <li>Best run: <span id="best_singles_run"></span></li>
 <li>Worst run: <span id="worst_singles_run"></span></li>
-<li>&nbsp;</li>
-<li>Total wins: <span id="total_wins"></span></li>
-<li>Total losses: <span id="total_losses"></span></li>
-<li>Win percentage: <span id="win_percentage"></span></li>
 </ul>
 
 <div id="player_page" class="player_page">
@@ -58,6 +64,9 @@ create_stats();
   </div>
 </div>
 
+<hr>
+
+
 <script id="resultTemplate" type="text/x-jsrender">
     <div id="result" class="resultrow">
       <font color="{{:id_colour}}">
@@ -65,10 +74,8 @@ create_stats();
       </font>
       <span class="id_rank">{{:id_rank}}</span>
       &nbsp;
-      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
-      &nbsp;
+      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
       {{:result}}
-      &nbsp;
       <a class="idlink" href="player.html?{{:opponent}}">{{:opponent}}</a>{{:opp_padding}}
       &nbsp;
       <span class="opp_rank">{{:opp_rank}}</span>

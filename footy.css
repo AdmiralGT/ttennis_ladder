@@ -8,7 +8,8 @@ div.resultadder
 ul
 {
   padding: 0px;
-  list-style-type:none
+  list-style-type:none;
+  text-align: center;
 }
 
 body
@@ -82,7 +83,36 @@ hr
   width: 90%;
   clear: left;
 }
+
 .playerrow10
 {
   margin-bottom: 15px;
+}
+
+.player_rating_range
+{
+  width: 40%;
+  float: left;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.home_page_link
+{
+  float: right;
+  width: 15%;
+  padding-bottom: 10px;
+}
+
+.player_padding
+{
+  width: 15%;
+  float: left;
+  padding-bottom: 10px;
+}
+
+.rating_bar
+{
+  width: 1200;
+  float: left;
 }
