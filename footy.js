@@ -592,25 +592,12 @@ function create_stats()
 
     if (sp.maxlrun == 1)
     {
-      $("#worst_singles_run").text(sp.maxlrun + " loss");
+      $("#worst_singles_run").text(sp.maxlrun = " loss");
     }
     else
     {
       $("#worst_singles_run").text(sp.maxlrun + " losses");
     }
-
-    $("#total_wins").text(sp.wins + " wins");
-    if (sp.wins == 1)
-    {
-      $("#total_wins").text(sp.wins + " win");
-    }
-
-    $("#total_losses").text((sp.run.length - sp.wins) + " losses");
-    if (sp.run.length - sp.wins == 1)
-    {
-      $("#total_losses").text((sp.run.length - sp.wins) + " loss");
-    }
-    $("#win_percentage").text((Math.round(sp.winp * 10) / 10) + "%");
 
   // chart time; include the last 100 games; if there are less, simply put 0
   var datapts = [];
@@ -654,59 +641,6 @@ function create_stats()
     };
 
     var schart = new Chart(ctx).Line(data, { scaleBeginAtZero: false } ); //, options);
-  }
-
-  if (typeof dp === "undefined")
-  {
-    $("#doubles_min").text('');
-    $("#doubles_max").text('');
-    $("#current_doubles_run").text('');
-    $("#best_doubles_run").text('');
-    $("#worst_doubles_run").text('');
-  }
-  else
-  {
-    $("#doubles_min").text(Math.floor(dp.lowest));
-    $("#doubles_max").text(Math.floor(dp.highest));
-    $("#current_doubles_run").text(dp.cwrun);
-    $("#best_doubles_run").text(dp.maxwrun);
-    $("#worst_doubles_run").text(dp.maxlrun);
-
-    var datapts = [];
-
-    if (dp.ptsrecord.length < 100)
-    {
-      for (var i = 0; i < (100-dp.ptsrecord.length); i++)
-      {
-        datapts.push(1600);
-      }
-
-      datapts = datapts.concat(dp.ptsrecord);
-    }
-    else
-    {
-      // only want the last few; so copy those in
-      for (var i = (dp.ptsrecord.length - 100); i < dp.ptsrecord.length; i++)
-      {
-        datapts.push(dp.ptsrecord[i]);
-      }
-    }
-
-    var ctx = $("#doubles_chart").get(0).getContext("2d");
-
-    var data = {
-      labels : labels,
-      datasets: [
-       {
-         label: "doubles",
-         fillColor: "rgba(220,220,220,0.5)",
-         strokeColor: "rgba(220,220,220,0.8)",
-         data: datapts
-       }
-       ]
-    };
-
-    var schart = new Chart(ctx).Bar(data, { scaleBeginAtZero: false } );
   }
 
   $(".id").text(playerid);
