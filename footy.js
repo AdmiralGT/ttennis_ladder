@@ -4,9 +4,19 @@
 var table_length = 28;
 
 var tabledata;
-var recent_results = [];
 
-var activitylist = [];
+// An array of all results
+var all_results = [];
+
+// How many games to consider whether a player is active or not
+var activity_requirement = 500;
+
+// A list of all active players
+var active_players = [];
+
+// 
+var activity_list = [];
+var inactivy_list = [];
 
 var s_db;
 var d_db;
@@ -77,7 +87,7 @@ function drawtable()
   // the template then executes for each of the elements in this.
 
   var players = getplayers(tabledata.singles);
-  var results = getresults(recent_results);
+  var results = getresults(all_results);
 
   var template = $.templates("#playerTemplate");
   var htmlOutput = template.render(players);
@@ -109,7 +119,7 @@ function draw_player_res_table()
 {
   // what player do we want? URL format is player.html/INITIALS
   var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
-  var results = get_player_results(recent_results, playerid);
+  var results = get_player_results(all_results, playerid);
 
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results);
@@ -343,16 +353,16 @@ function Player(id) // id is their initials
     this.winp = this.wins/this.run.length * 100;
 
     // this player was active.  So let's look them up in the activity list.
-    var i = activitylist.indexOf(this.id);
+    var i = activity_list.indexOf(this.id);
 
     if (i >= 0)
     {
       // remove it
-      activitylist.splice(i,1);
+      activity_list.splice(i,1);
     }
 
     // add on the end
-    activitylist.push(this.id);
+    activity_list.push(this.id);
   }
 }
 
@@ -387,7 +397,7 @@ function loadjsondata(url)
   var doubles = [];
 
   // clear the activity data
-  activitylist = [];
+  activity_list = [];
 
   for (var i = 0; i < journal.length; i++)
   {
@@ -432,7 +442,18 @@ function loadjsondata(url)
       var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
       var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta);
 
-      recent_results.push(result);
+      if (i > (journal.length - activity_requirement))
+      {
+        if (active_players.indexOf(v[0]) == -1)
+        {
+          active_players.push(v[0]);
+        }
+        if (active_players.indexOf(l[0]) == -1)
+        {
+          active_players.push(l[0]);
+        }
+      }
+      all_results.push(result);
     }
     else
     {
@@ -479,7 +500,8 @@ function loadjsondata(url)
     }
   }
 
-  activitylist = activitylist.splice(activitylist.length-table_length,table_length);
+  inactivity_list = activity_list;
+  activity_list = activity_list.splice(activity_list.length-active_players.length,active_players.length);
 
   // annoyingly, we now need to turn singles into an array with INDEXES.  Javascript is annoying sometimes - and otherwise length doesn't work... neither does sort, or any of the other functions.
   var asingles = convertArray(singles);
@@ -494,13 +516,13 @@ function loadjsondata(url)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
-    }, activitylist);
+    }, activity_list);
 
   adoubles = adoubles.filter(function(v)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
-    }, activitylist);
+    }, activity_list);
 
   asingles.sort(function(a,b)
     {
