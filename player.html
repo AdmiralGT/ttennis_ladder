@@ -51,6 +51,10 @@ create_stats();
 <li>Current run: <span id="current_singles_run"></span></li>
 <li>Best run: <span id="best_singles_run"></span></li>
 <li>Worst run: <span id="worst_singles_run"></span></li>
+<li>&nbsp;</li>
+<li>Total wins: <span id="total_wins"></span></li>
+<li>Total losses: <span id="total_losses"></span></li>
+<li>Win percentage: <span id="win_percentage"></span></li>
 </ul>
 
 <div id="player_page" class="player_page">
@@ -74,8 +78,10 @@ create_stats();
       </font>
       <span class="id_rank">{{:id_rank}}</span>
       &nbsp;
-      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
+      &nbsp;
       {{:result}}
+      &nbsp;
       <a class="idlink" href="player.html?{{:opponent}}">{{:opponent}}</a>{{:opp_padding}}
       &nbsp;
       <span class="opp_rank">{{:opp_rank}}</span>
