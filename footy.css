@@ -56,6 +56,7 @@ a.idlink
 {
   width: 1000px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #outer_s_tbl
@@ -63,6 +64,10 @@ a.idlink
   float: left;
   margin-right: 20px;
   margin-left: 60px;
+}
+
+#inactive_s_tbl
+{
 }
 
 #recent_res_tbl
