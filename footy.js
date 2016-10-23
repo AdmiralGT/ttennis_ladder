@@ -80,7 +80,6 @@ function drawtable()
   // {{:pad_rank}}   - padded to 4
   // {{:pad_change}} - padded to 4
   // {{:id}} - unpadded initials
-  // {{:id_padding}} - padding to make id length 4
   // {{:record}} - win percentage, padded to xx.x%
   // {{:gamerun}} - last ten games results
 
@@ -141,12 +140,6 @@ function getplayers(data, offset)
   for (var i = 0; i < data.length; i++)
   {
     var t_row = data[i]
-    var id_padding_str = '';
-
-    for (var ii = 0; ii < (4 - t_row.id.length); ii++)
-    {
-      id_padding_str = id_padding_str + '&nbsp;';
-    }
 
     // note that we modify the run array... could use filter instead if we need to change that
     var gameruna = t_row.run;
@@ -160,7 +153,6 @@ function getplayers(data, offset)
                   id: t_row.id,
                   pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
-		              id_padding: id_padding_str,
                   record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
 		              gamerun: pad_s(gamerun,10)
                 };
@@ -179,23 +171,9 @@ function getresults(data)
   for (var i = data.length - num_recent_results; i < data.length; i++)
   {
     var t_row = data[i]
-    var v_id_padding_str = '';
-    var l_id_padding_str = '';
-
-    for (var ii = 0; ii < (4 - t_row.winner.length); ii++)
-    {
-      v_id_padding_str = v_id_padding_str + '&nbsp;';
-    }
-    for (var ii = 0; ii < (4 - t_row.loser.length); ii++)
-    {
-      l_id_padding_str = l_id_padding_str + '&nbsp;';
-    }
-
 
     var p_row = { v_id: t_row.winner,
                   l_id: t_row.loser,
-                  v_id_padding: v_id_padding_str,
-                  l_id_padding: l_id_padding_str,
                   v_rank: pad_i(t_row.w_rank),
                   l_rank: pad_i(t_row.l_rank),
                   delta: Math.floor(t_row.delta),
@@ -218,8 +196,6 @@ function get_player_results(data, id)
   for (var i = data.length - results_to_search; i < data.length; i++)
   {
     var t_row = data[i]
-    var id_padding_str = '';
-    var opp_padding_str = '';
     var opponent = '';
     var result_str = 'loss vs'
 
@@ -251,25 +227,13 @@ function get_player_results(data, id)
         opp_rank = pad_i(t_row.w_rank)
       }
 
-      for (var ii = 0; ii < (4 - id.length); ii++)
-      {
-        id_padding_str = id_padding_str + '&nbsp;';
-      }
-      for (var ii = 0; ii < (4 - opponent.length); ii++)
-      {
-        opp_padding_str = opp_padding_str + '&nbsp;';
-      }
-
-
       var p_row = { id: id,
                     res_delta_class: res_delta_class,
                     opp_res_delta_class: opp_res_delta_class, 
-                    id_padding: id_padding_str,
                     id_rank: id_rank,
                     id_res: id_res,
                     opponent: opponent,
                     opp_colour: opp_colour,
-                    opp_padding: opp_padding_str,
                     opp_rank: opp_rank,
                     opp_res: opp_res,
                     result: result_str,
