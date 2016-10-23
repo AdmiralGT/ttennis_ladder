@@ -114,15 +114,13 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
  playerrow10
 {{/if}}
 " style="color:grey">
-
-      <span class="pos">{{:pos}}</span>
-      <span class="rank">{{:pad_rank}}</span>
-      &nbsp;
-      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
-      &nbsp;
-      {{:record}}
-      &nbsp;
-      {{:gamerun}}
+      <div class="ladder lad_pos">{{:pos}}</div>
+      <div class="ladder lad_rank">{{:pad_rank}}</div>
+      <div class="ladder lad_player">
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      </div>
+      <div class="ladder lad_record">{{:record}}</div>
+      <div class="ladder lad_past">{{:gamerun}}</div>
     </div>
 </script>
 
