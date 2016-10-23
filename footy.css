@@ -141,15 +141,21 @@ a.idlink
   clear: both;
   display: table;
   margin: 0 auto;
+  text-align: left;
 }
 
-.delta
+.result
+{
+  float: left
+}
+
+.res_delta
 {
   float: left;
-  width: 3em;
+  width: 3.5em;
 }
 
-.rank
+.res_rank
 {
   float: left;
   width: 3em;
@@ -167,12 +173,20 @@ a.idlink
   width: 3em;
 }
 
-.win
+.res_win
+{
+}
+
+.res_delta_win
 {
   color: green;
 }
 
-.lose
+.res_lose
+{
+}
+
+.res_delta_lose
 {
   color: red;
 }

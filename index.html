@@ -95,7 +95,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
       <div class="ladder lad_pos">{{:pos}}</div>
       <div class="ladder lad_rank">{{:pad_rank}}</div>
       <div class="ladder lad_player">
-        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
       </div>
       <div class="ladder lad_record">{{:record}}</div>
       <div class="ladder lad_past">{{:gamerun}}</div>
@@ -104,17 +104,17 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 
 <script id="resultTemplate" type="text/x-jsrender">
     <div id="result" class="resultrow">
-      <div class="delta win">(+{{:delta}})</div>
-      <div class="rank">{{:v_rank}}</div>
-      <div class="res_player">
-        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>{{:v_id_padding}}
+      <div class="result res_delta res_win res_delta_win">(+{{:delta}})</div>
+      <div class="result res_rank res_win">{{:v_rank}}</div>
+      <div class="result res_player res_win">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
       </div>
-      <div class="res_divider">beat</div>
-      <div class="res_player">
-        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>{{:l_id_padding}}
+      <div class="result res_divider">beat</div>
+      <div class="result res_player res_lose">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
       </div>
-      <div class="rank">{{:l_rank}}</div>
-      <div class="delta lose">(-{{:delta}})</div>
+      <div class="result res_rank res_lose">{{:l_rank}}</div>
+      <div class="result res_delta res_lose res_delta_lose">(-{{:delta}})</div>
     </div>
 </script>
 
