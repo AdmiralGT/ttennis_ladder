@@ -75,29 +75,30 @@ a.idlink
   clear: both;
   display: table;
   margin: 0 auto;
+  text-align: left;
 }
 
 .playerrow1
 {
   color: gold;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 .playerrow2
 {
   color: silver;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 .playerrow3
 {
   color: chocolate;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 .playerrow10
 {
-  padding-bottom: 2.5em;
+  padding-bottom: 2em;
 }
 
 .ladder
@@ -108,22 +109,23 @@ a.idlink
 .lad_pos
 {
   text-align: right;
-  width: 3em;
+  width: 2em;
+  margin-right: 1em;
 }
 
 .lad_rank
 {
-  width: 6em;
+  width: 5.5em;
 }
 
 .lad_player
 {
-  width: 4em;
+  width: 5.5em;
 }
 
 .lad_record
 {
-  width: 6em;
+  width: 5.5em;
 }
 
 .lad_past
