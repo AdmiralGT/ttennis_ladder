@@ -98,22 +98,26 @@ a.idlink
   text-align: left;
 }
 
+.playerrow_top
+{
+  border-radius: 1em;
+  padding: 0.3em;
+  margin: 0.5em auto;
+}
+
 .playerrow1
 {
-  color: gold;
-  padding-bottom: 1em;
+  background-color: gold;
 }
 
 .playerrow2
 {
-  color: silver;
-  padding-bottom: 1em;
+  background-color: silver;
 }
 
 .playerrow3
 {
-  color: chocolate;
-  padding-bottom: 1em;
+  background-color: burlywood;
 }
 
 .playerrow10
@@ -150,7 +154,11 @@ a.idlink
 
 .lad_past
 {
-  width: 6em;
+  width: 6.5em;
+}
+
+.lad_past_entry
+{
 }
 
 /* end of ladder styling */
