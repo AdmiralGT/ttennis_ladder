@@ -35,14 +35,16 @@ a.idlink
   font-weight: bold;
 }
 
-.res_tbl
+.main_column
 {
-  width: 400px;
+  float: left;
+  width: 350px;
 }
 
-.results_tbl
+.secondary_column
 {
-  width: 400px;
+  float: left;
+  width: 325px;
 }
 
 /* Results table on a Player Page */
@@ -58,19 +60,56 @@ a.idlink
   margin: 0 auto;
 }
 
-#outer_s_tbl
+#main_ladder
 {
-  float: left;
-  margin-right: 20px;
-  margin-left: 60px;
 }
 
 #recent_res_tbl
 {
-  float: left;
-  margin-left: 20px;
-  margin-right: 20px;
 }
+
+/* results table styling*/
+.resultrow
+{
+  clear: both;
+}
+
+.delta
+{
+  float: left;
+  width: 3em;
+}
+
+.rank
+{
+  float: left;
+  width: 3em;
+}
+
+.res_player
+{
+  float: left;
+  width: 3em;
+}
+
+.res_divider
+{
+  float: left;
+  width: 3em;
+}
+
+.win
+{
+  color: green;
+}
+
+.lose
+{
+  color: red;
+}
+
+/* end of results table styling */
+
 
 #player_page
 {
