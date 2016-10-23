@@ -73,21 +73,17 @@ create_stats();
 
 <script id="resultTemplate" type="text/x-jsrender">
     <div id="result" class="resultrow">
-      <font color="{{:id_colour}}">
-      <span class="delta">({{:id_res}}{{:delta}})</span>
-      </font>
-      <span class="id_rank">{{:id_rank}}</span>
-      &nbsp;
-      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>{{:id_padding}}
-      &nbsp;
-      {{:result}}
-      &nbsp;
-      <a class="idlink" href="player.html?{{:opponent}}">{{:opponent}}</a>{{:opp_padding}}
-      &nbsp;
-      <span class="opp_rank">{{:opp_rank}}</span>
-      <font color="{{:opp_colour}}">
-      <span class="delta">({{:opp_res}}{{:delta}})</span>
-      </font>
+      <div class="res_delta res_delta_player {{:res_delta_class}}">({{:id_res}}{{:delta}})</div>
+      <div class="res_rank">{{:id_rank}}</div>
+      <div class="res_player">
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      </div>
+      <div class="res_divider_player_page">{{:result}}</div>
+      <div class="res_player">
+        <a class="idlink" href="player.html?{{:opponent}}">{{:opponent}}</a>
+      </div>
+      <div class="res_rank">{{:opp_rank}}</div>
+      <div class="res_delta {{:opp_res_delta_class}}">({{:opp_res}}{{:delta}})</div>
     </div>
 </script>
 
