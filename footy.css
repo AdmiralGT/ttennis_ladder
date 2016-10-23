@@ -24,25 +24,21 @@ body
   font-weight: bold;
 }
 
-.hdr
-{
-  font-style: italic;
-  font-weight: bold;
-}
-
 a.idlink
 {
   font-weight: bold;
 }
 
-.res_tbl
+.main_column
 {
-  width: 400px;
+  float: left;
+  width: 350px;
 }
 
-.results_tbl
+.secondary_column
 {
-  width: 400px;
+  float: left;
+  width: 325px;
 }
 
 /* Results table on a Player Page */
@@ -59,11 +55,8 @@ a.idlink
   overflow: hidden;
 }
 
-#outer_s_tbl
+#main_ladder
 {
-  float: left;
-  margin-right: 20px;
-  margin-left: 60px;
 }
 
 #inactive_s_tbl
@@ -72,10 +65,139 @@ a.idlink
 
 #recent_res_tbl
 {
-  float: left;
-  margin-left: 20px;
-  margin-right: 20px;
 }
+
+.hdr
+{
+  clear: both;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* ladder styling */
+.playerrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.playerrow1
+{
+  color: gold;
+  padding-bottom: 1em;
+}
+
+.playerrow2
+{
+  color: silver;
+  padding-bottom: 1em;
+}
+
+.playerrow3
+{
+  color: chocolate;
+  padding-bottom: 1em;
+}
+
+.playerrow10
+{
+  padding-bottom: 2em;
+}
+
+.ladder
+{
+  float: left;
+}
+
+.lad_pos
+{
+  text-align: right;
+  width: 2em;
+  margin-right: 1em;
+}
+
+.lad_rank
+{
+  width: 5.5em;
+}
+
+.lad_player
+{
+  width: 5.5em;
+}
+
+.lad_record
+{
+  width: 5.5em;
+}
+
+.lad_past
+{
+  width: 6em;
+}
+
+/* end of ladder styling */
+
+/* results table styling*/
+.resultrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.result
+{
+  float: left
+}
+
+.res_delta
+{
+  float: left;
+  width: 3.5em;
+}
+
+.res_rank
+{
+  float: left;
+  width: 3em;
+}
+
+.res_player
+{
+  float: left;
+  width: 3em;
+}
+
+.res_divider
+{
+  float: left;
+  width: 3em;
+}
+
+.res_win
+{
+}
+
+.res_delta_win
+{
+  color: green;
+}
+
+.res_lose
+{
+}
+
+.res_delta_lose
+{
+  color: red;
+}
+
+/* end of results table styling */
+
 
 #player_page
 {
@@ -87,11 +209,6 @@ hr
 {
   width: 90%;
   clear: left;
-}
-
-.playerrow10
-{
-  margin-bottom: 15px;
 }
 
 .player_rating_range
