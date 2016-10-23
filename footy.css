@@ -24,12 +24,6 @@ body
   font-weight: bold;
 }
 
-.hdr
-{
-  font-style: italic;
-  font-weight: bold;
-}
-
 a.idlink
 {
   font-weight: bold;
@@ -68,10 +62,83 @@ a.idlink
 {
 }
 
+.hdr
+{
+  clear: both;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* ladder styling */
+.playerrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+}
+
+.playerrow1
+{
+  color: gold;
+  padding-bottom: 2em;
+}
+
+.playerrow2
+{
+  color: silver;
+  padding-bottom: 2em;
+}
+
+.playerrow3
+{
+  color: chocolate;
+  padding-bottom: 2em;
+}
+
+.playerrow10
+{
+  padding-bottom: 2.5em;
+}
+
+.ladder
+{
+  float: left;
+}
+
+.lad_pos
+{
+  text-align: right;
+  width: 3em;
+}
+
+.lad_rank
+{
+  width: 6em;
+}
+
+.lad_player
+{
+  width: 4em;
+}
+
+.lad_record
+{
+  width: 6em;
+}
+
+.lad_past
+{
+  width: 6em;
+}
+
+/* end of ladder styling */
+
 /* results table styling*/
 .resultrow
 {
   clear: both;
+  display: table;
+  margin: 0 auto;
 }
 
 .delta
@@ -121,11 +188,6 @@ hr
 {
   width: 90%;
   clear: left;
-}
-
-.playerrow10
-{
-  margin-bottom: 15px;
 }
 
 .player_rating_range
