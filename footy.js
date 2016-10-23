@@ -231,7 +231,8 @@ function get_player_results(data, id)
         opponent = t_row.loser;
         result_str = '&nbspwin vs';
         id_res = '+'
-        id_colour = 'green'
+        res_delta_class = 'res_delta_win'
+        opp_res_delta_class = 'res_delta_lose'
         id_rank = pad_i(t_row.w_rank)
         opp_res = '-'
         opp_colour = 'red'
@@ -242,7 +243,8 @@ function get_player_results(data, id)
         // Opponent won
         opponent = t_row.winner;
         id_res = '-'
-        id_colour = 'red'
+        res_delta_class = 'res_delta_lose'
+        opp_res_delta_class = 'res_delta_win'
         id_rank = pad_i(t_row.l_rank)
         opp_res = '+'
         opp_colour = 'green'
@@ -260,7 +262,8 @@ function get_player_results(data, id)
 
 
       var p_row = { id: id,
-                    id_colour: id_colour,
+                    res_delta_class: res_delta_class,
+                    opp_res_delta_class: opp_res_delta_class, 
                     id_padding: id_padding_str,
                     id_rank: id_rank,
                     id_res: id_res,
