@@ -173,17 +173,21 @@ a.idlink
   width: 3em;
 }
 
-.res_win
+.res_divider_player_page
 {
+  float: left;
+  width: 5em;
+}
+
+.res_delta_player
+{
+  text-align: right;
+  margin-right: 0.5em;
 }
 
 .res_delta_win
 {
   color: green;
-}
-
-.res_lose
-{
 }
 
 .res_delta_lose
