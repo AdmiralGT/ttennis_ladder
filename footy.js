@@ -4,9 +4,19 @@
 var table_length = 28;
 
 var tabledata;
-var recent_results = [];
 
-var activitylist = [];
+// An array of all results
+var all_results = [];
+
+// How many games to consider whether a player is active or not
+var activity_requirement = 500;
+
+// A list of all active players
+var active_players = [];
+
+// 
+var activity_list = [];
+var inactivy_list = [];
 
 var s_db;
 var d_db;
@@ -70,19 +80,24 @@ function drawtable()
   // {{:pad_rank}}   - padded to 4
   // {{:pad_change}} - padded to 4
   // {{:id}} - unpadded initials
-  // {{:id_padding}} - padding to make id length 4
   // {{:record}} - win percentage, padded to xx.x%
   // {{:gamerun}} - last ten games results
 
   // the template then executes for each of the elements in this.
 
-  var players = getplayers(tabledata.singles);
-  var results = getresults(recent_results);
+  var active_players = getplayers(tabledata.singles, 0);
+  var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
+  var results = getresults(all_results);
 
   var template = $.templates("#playerTemplate");
-  var htmlOutput = template.render(players);
+  var htmlOutput = template.render(active_players);
 
   $("#s_tbl").html(htmlOutput);
+
+  var template = $.templates("#inactive_player_template");
+  var htmlOutput = template.render(inactive_players);
+
+  $("#inactive_tbl").html(htmlOutput);
 
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results);
@@ -109,7 +124,7 @@ function draw_player_res_table()
 {
   // what player do we want? URL format is player.html/INITIALS
   var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
-  var results = get_player_results(recent_results, playerid);
+  var results = get_player_results(all_results, playerid);
 
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results);
@@ -118,19 +133,13 @@ function draw_player_res_table()
 }
 
 
-function getplayers(data)
+function getplayers(data, offset)
 {
   var players = [ ];
 
   for (var i = 0; i < data.length; i++)
   {
     var t_row = data[i]
-    var id_padding_str = '';
-
-    for (var ii = 0; ii < (4 - t_row.id.length); ii++)
-    {
-      id_padding_str = id_padding_str + '&nbsp;';
-    }
 
     // note that we modify the run array... could use filter instead if we need to change that
     var gameruna = t_row.run;
@@ -140,11 +149,10 @@ function getplayers(data)
   //                                  Math.min(t_row.run.length, 10));
     var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
 
-    var p_row = { pos: i+1,
+    var p_row = { pos: i+1+offset,
                   id: t_row.id,
                   pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
-		              id_padding: id_padding_str,
                   record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
 		              gamerun: pad_s(gamerun,10)
                 };
@@ -163,23 +171,9 @@ function getresults(data)
   for (var i = data.length - num_recent_results; i < data.length; i++)
   {
     var t_row = data[i]
-    var v_id_padding_str = '';
-    var l_id_padding_str = '';
-
-    for (var ii = 0; ii < (4 - t_row.winner.length); ii++)
-    {
-      v_id_padding_str = v_id_padding_str + '&nbsp;';
-    }
-    for (var ii = 0; ii < (4 - t_row.loser.length); ii++)
-    {
-      l_id_padding_str = l_id_padding_str + '&nbsp;';
-    }
-
 
     var p_row = { v_id: t_row.winner,
                   l_id: t_row.loser,
-                  v_id_padding: v_id_padding_str,
-                  l_id_padding: l_id_padding_str,
                   v_rank: pad_i(t_row.w_rank),
                   l_rank: pad_i(t_row.l_rank),
                   delta: Math.floor(t_row.delta),
@@ -202,8 +196,6 @@ function get_player_results(data, id)
   for (var i = data.length - results_to_search; i < data.length; i++)
   {
     var t_row = data[i]
-    var id_padding_str = '';
-    var opp_padding_str = '';
     var opponent = '';
     var result_str = 'loss vs'
 
@@ -215,7 +207,8 @@ function get_player_results(data, id)
         opponent = t_row.loser;
         result_str = '&nbspwin vs';
         id_res = '+'
-        id_colour = 'green'
+        res_delta_class = 'res_delta_win'
+        opp_res_delta_class = 'res_delta_lose'
         id_rank = pad_i(t_row.w_rank)
         opp_res = '-'
         opp_colour = 'red'
@@ -226,31 +219,21 @@ function get_player_results(data, id)
         // Opponent won
         opponent = t_row.winner;
         id_res = '-'
-        id_colour = 'red'
+        res_delta_class = 'res_delta_lose'
+        opp_res_delta_class = 'res_delta_win'
         id_rank = pad_i(t_row.l_rank)
         opp_res = '+'
         opp_colour = 'green'
         opp_rank = pad_i(t_row.w_rank)
       }
 
-      for (var ii = 0; ii < (4 - id.length); ii++)
-      {
-        id_padding_str = id_padding_str + '&nbsp;';
-      }
-      for (var ii = 0; ii < (4 - opponent.length); ii++)
-      {
-        opp_padding_str = opp_padding_str + '&nbsp;';
-      }
-
-
       var p_row = { id: id,
-                    id_colour: id_colour,
-                    id_padding: id_padding_str,
+                    res_delta_class: res_delta_class,
+                    opp_res_delta_class: opp_res_delta_class, 
                     id_rank: id_rank,
                     id_res: id_res,
                     opponent: opponent,
                     opp_colour: opp_colour,
-                    opp_padding: opp_padding_str,
                     opp_rank: opp_rank,
                     opp_res: opp_res,
                     result: result_str,
@@ -343,16 +326,16 @@ function Player(id) // id is their initials
     this.winp = this.wins/this.run.length * 100;
 
     // this player was active.  So let's look them up in the activity list.
-    var i = activitylist.indexOf(this.id);
+    var i = activity_list.indexOf(this.id);
 
     if (i >= 0)
     {
       // remove it
-      activitylist.splice(i,1);
+      activity_list.splice(i,1);
     }
 
     // add on the end
-    activitylist.push(this.id);
+    activity_list.push(this.id);
   }
 }
 
@@ -387,7 +370,7 @@ function loadjsondata(url)
   var doubles = [];
 
   // clear the activity data
-  activitylist = [];
+  activity_list = [];
 
   for (var i = 0; i < journal.length; i++)
   {
@@ -432,7 +415,18 @@ function loadjsondata(url)
       var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
       var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta);
 
-      recent_results.push(result);
+      if (i > (journal.length - activity_requirement))
+      {
+        if (active_players.indexOf(v[0]) == -1)
+        {
+          active_players.push(v[0]);
+        }
+        if (active_players.indexOf(l[0]) == -1)
+        {
+          active_players.push(l[0]);
+        }
+      }
+      all_results.push(result);
     }
     else
     {
@@ -479,10 +473,12 @@ function loadjsondata(url)
     }
   }
 
-  activitylist = activitylist.splice(activitylist.length-table_length,table_length);
+  inactivity_list = activity_list;
+  activity_list = activity_list.splice(activity_list.length-active_players.length,active_players.length);
 
   // annoyingly, we now need to turn singles into an array with INDEXES.  Javascript is annoying sometimes - and otherwise length doesn't work... neither does sort, or any of the other functions.
   var asingles = convertArray(singles);
+  var isingles = asingles.slice(0);
   var adoubles = convertArray(doubles);
 
   // remember the full set for later
@@ -494,15 +490,27 @@ function loadjsondata(url)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
-    }, activitylist);
+    }, activity_list);
+
+  // now we need to filter the arrays for just the most recently active players.
+  isingles = isingles.filter(function(v)
+    {
+      if (this.indexOf(v.id) < 0) { return false; }
+        return true;
+    }, inactivity_list);
 
   adoubles = adoubles.filter(function(v)
     {
       if (this.indexOf(v.id) < 0) { return false; }
         return true;
-    }, activitylist);
+    }, activity_list);
 
   asingles.sort(function(a,b)
+    {
+      return b.rank - a.rank;
+    });
+
+  isingles.sort(function(a,b)
     {
       return b.rank - a.rank;
     });
@@ -512,7 +520,7 @@ function loadjsondata(url)
       return b.rank - a.rank;
     });
 
-  tabledata = { singles: asingles, doubles: adoubles };
+  tabledata = { singles: asingles, doubles: adoubles, inactive_singles: isingles };
 }
 
 // convert a hash-array into an actual array
