@@ -156,7 +156,7 @@ function getplayers(data, offset)
   //                                  Math.min(t_row.run.length, 10));
     var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
 
-    var p_row = { pos: i+1,
+    var p_row = { pos: i+1+offset,
                   id: t_row.id,
                   pad_rank: pad_i(t_row.rank, 4),
                   pad_change: '    ', //pad_i(t_row.change, 4),
