@@ -33,6 +33,7 @@ a.idlink
 {
   float: left;
   width: 350px;
+  margin-right: 15em;
 }
 
 .secondary_column
@@ -59,8 +60,14 @@ a.idlink
 {
 }
 
-#inactive_s_tbl
+#s_tbl
 {
+  padding-bottom: 16px;
+}
+
+#inactive_tbl
+{
+  color: grey;
 }
 
 #recent_res_tbl
@@ -72,6 +79,14 @@ a.idlink
   clear: both;
   font-style: italic;
   font-weight: bold;
+}
+
+.inactive_hdr
+{
+  clear: both;
+  font-style: italic;
+  font-weight: bold;
+  color: grey;
 }
 
 /* ladder styling */

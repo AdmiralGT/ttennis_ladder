@@ -65,6 +65,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
     <div id="s_tbl">
       <div id="player" class="playerrow"></div>
     </div>
+    <div class="inactive_hdr">Inactive Players</div>
     <div id="inactive_tbl">
       <div id="player" class="playerrow"></div>
     </div>
@@ -108,7 +109,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 {{if ((pos % 10) == 0)}}
  playerrow10
 {{/if}}
-" style="color:grey">
+">
       <div class="ladder lad_pos">{{:pos}}</div>
       <div class="ladder lad_rank">{{:pad_rank}}</div>
       <div class="ladder lad_player">
