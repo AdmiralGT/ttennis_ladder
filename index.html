@@ -85,13 +85,13 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
  playerrow10
 {{/if}}
 {{if (pos == 1)}}
- playerrow1
+ playerrow_top playerrow1
 {{/if}}
 {{if (pos == 2)}}
- playerrow2
+ playerrow_top playerrow2
 {{/if}}
 {{if (pos == 3)}}
- playerrow3
+ playerrow_top playerrow3
 {{/if}}
 ">
       <div class="ladder lad_pos">{{:pos}}</div>
@@ -100,7 +100,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
         <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
       </div>
       <div class="ladder lad_record">{{:record}}</div>
-      <div class="ladder lad_past">{{:gamerun}}</div>
+      <div class="ladder lad_past lad_past_entry">{{:gamerun}}</div>
     </div>
 </script>
 
@@ -116,7 +116,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
         <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
       </div>
       <div class="ladder lad_record">{{:record}}</div>
-      <div class="ladder lad_past">{{:gamerun}}</div>
+      <div class="ladder lad_past lad_past_entry">{{:gamerun}}</div>
     </div>
 </script>
 
