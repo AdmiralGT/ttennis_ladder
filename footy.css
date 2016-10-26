@@ -45,7 +45,7 @@ a.idlink
 .secondary_column
 {
   float: left;
-  width: 23em;
+  width: 24em;
 }
 
 /* Results table on a Player Page */
@@ -172,6 +172,11 @@ a.idlink
 /* end of ladder styling */
 
 /* results table styling*/
+.res_hdr
+{
+  margin-bottom: 0.5em;
+}
+
 .resultrow
 {
   clear: both;
@@ -188,7 +193,7 @@ a.idlink
 .res_delta
 {
   float: left;
-  width: 2.5em;
+  width: 3em;
 }
 
 .res_rank
@@ -200,7 +205,7 @@ a.idlink
 .res_player
 {
   float: left;
-  width: 3.5em;
+  width: 4em;
 }
 
 .res_divider
