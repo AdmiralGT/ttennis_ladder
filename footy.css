@@ -14,7 +14,7 @@ ul
 
 body
 {
-  font-family: 'Consolas', fixed, sans-serif;
+  font-family: 'Courier New', Fixed, sans-serif;
   font-size: small;
   text-align: center;
 }
@@ -45,7 +45,7 @@ a.idlink
 .secondary_column
 {
   float: left;
-  width: 24em;
+  width: 22em;
 }
 
 /* Results table on a Player Page */
@@ -165,7 +165,6 @@ a.idlink
 
 .lad_past_entry
 {
-  font-family: 'Courier New', fixed, sans-serif;
   text-align: right;
 }
 
@@ -205,7 +204,7 @@ a.idlink
 .res_player
 {
   float: left;
-  width: 4em;
+  width: 3em;
 }
 
 .res_divider
@@ -223,7 +222,7 @@ a.idlink
 .res_delta_left
 {
   text-align: right;
-  margin-right: 0.8em;
+  margin-right: 0.5em;
 }
 
 .res_delta_right
