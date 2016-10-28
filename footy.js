@@ -35,32 +35,6 @@ function startup()
   loadjsondata("journal");
 }
 
-function pad_i(f, len)
-{
-  return pad_s('' + Math.floor(f), len);
-}
-
-function pad_s(str, len)
-{
-  if (str.length < len)
-  {
-    var padlen = len - str.length;
-
-    var pad = '';
-
-    for (i = 0; i < padlen; i++)
-    {
-      pad = '&nbsp;' + pad;
-    }
-
-    return pad + str;
-  }
-  else
-  {
-    return str;
-  }
-}
-
 //
 // function: drawtable
 //
@@ -77,10 +51,10 @@ function drawtable()
   // example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
 
   // need in the item s_players,
-  // {{:pad_rank}}   - padded to 4
-  // {{:pad_change}} - padded to 4
-  // {{:id}} - unpadded initials
-  // {{:record}} - win percentage, padded to xx.x%
+  // {{:rank}} 
+  // {{:change}}
+  // {{:id}} - initials
+  // {{:record}} - win percentage
   // {{:gamerun}} - last ten games results
 
   // the template then executes for each of the elements in this.
@@ -141,6 +115,8 @@ function getplayers(data, offset)
   {
     var t_row = data[i]
 
+    var rank = Math.floor(t_row.rank)
+
     // note that we modify the run array... could use filter instead if we need to change that
     var gameruna = t_row.run;
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
@@ -151,10 +127,10 @@ function getplayers(data, offset)
 
     var p_row = { pos: i+1+offset,
                   id: t_row.id,
-                  pad_rank: pad_i(t_row.rank, 4),
-                  pad_change: '    ', //pad_i(t_row.change, 4),
-                  record: pad_s(('' + t_row.winp).substring(0, Math.min(('' + t_row.winp).length, 4)) + '%',5),
-		              gamerun: pad_s(gamerun,10)
+                  rank: rank,
+                  change: '    ', 
+                  record: Math.round(t_row.winp * 10)/10 + '%',
+	          gamerun: gamerun
                 };
 
     players[i] = p_row;
@@ -171,11 +147,13 @@ function getresults(data)
   for (var i = data.length - num_recent_results; i < data.length; i++)
   {
     var t_row = data[i]
+    var v_rank = Math.floor(t_row.w_rank)
+    var l_rank = Math.floor(t_row.l_rank)
 
     var p_row = { v_id: t_row.winner,
                   l_id: t_row.loser,
-                  v_rank: pad_i(t_row.w_rank),
-                  l_rank: pad_i(t_row.l_rank),
+                  v_rank: v_rank,
+                  l_rank: l_rank,
                   delta: Math.floor(t_row.delta),
                 };
 
@@ -209,10 +187,10 @@ function get_player_results(data, id)
         id_res = '+'
         res_delta_class = 'res_delta_win'
         opp_res_delta_class = 'res_delta_lose'
-        id_rank = pad_i(t_row.w_rank)
+        id_rank = Math.floor(t_row.w_rank)
         opp_res = '-'
         opp_colour = 'red'
-        opp_rank = pad_i(t_row.l_rank)
+        opp_rank = Math.floor(t_row.l_rank)
       }
       else
       {
@@ -221,10 +199,10 @@ function get_player_results(data, id)
         id_res = '-'
         res_delta_class = 'res_delta_lose'
         opp_res_delta_class = 'res_delta_win'
-        id_rank = pad_i(t_row.l_rank)
+        id_rank = Math.floor(t_row.l_rank)
         opp_res = '+'
         opp_colour = 'green'
-        opp_rank = pad_i(t_row.w_rank)
+        opp_rank = Math.floor(t_row.w_rank)
       }
 
       var p_row = { id: id,
