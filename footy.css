@@ -14,9 +14,15 @@ ul
 
 body
 {
-  font-family: 'Courier New', fixed, sans-serif;
+  font-family: 'Courier New', Fixed, sans-serif;
   font-size: small;
   text-align: center;
+}
+
+#main_container
+{
+  width: 1000px;
+  margin: 0 auto;
 }
 
 .rank
@@ -29,18 +35,23 @@ a.idlink
   font-weight: bold;
 }
 
+#ttennis_doodle
+{
+  width: 50%;
+  height: auto;
+}
+
 .main_column
 {
   float: left;
-  width: 350px;
-  margin-right: 12em;
-  margin-left: 7em;
+  width: 27.5em;
+  margin-right: 10em;
 }
 
 .secondary_column
 {
   float: left;
-  width: 325px;
+  width: 22em;
 }
 
 /* Results table on a Player Page */
@@ -52,9 +63,8 @@ a.idlink
 
 #outer_tbl
 {
-  width: 1000px;
+  display: inline-block;
   margin: 0 auto;
-  overflow: hidden;
 }
 
 #main_ladder
@@ -123,7 +133,7 @@ a.idlink
 
 .playerrow10
 {
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
 .ladder
@@ -135,17 +145,17 @@ a.idlink
 {
   text-align: right;
   width: 2em;
-  margin-right: 1em;
+  margin-right: 2em;
 }
 
 .lad_rank
 {
-  width: 5.5em;
+  width: 5em;
 }
 
 .lad_player
 {
-  width: 5.5em;
+  width: 5em;
 }
 
 .lad_record
@@ -155,16 +165,23 @@ a.idlink
 
 .lad_past
 {
-  width: 6.5em;
+  width: 6em;
+  margin-right: 1em;
 }
 
 .lad_past_entry
 {
+  text-align: right;
 }
 
 /* end of ladder styling */
 
 /* results table styling*/
+.res_hdr
+{
+  margin-bottom: 0.5em;
+}
+
 .resultrow
 {
   clear: both;
@@ -181,7 +198,7 @@ a.idlink
 .res_delta
 {
   float: left;
-  width: 3.5em;
+  width: 3em;
 }
 
 .res_rank
@@ -205,18 +222,24 @@ a.idlink
 .res_divider_player_page
 {
   float: left;
-  width: 5em;
+  width: 4.5em;
 }
 
-.res_delta_player
+.res_delta_left
 {
   text-align: right;
   margin-right: 0.5em;
 }
 
+.res_delta_right
+{
+  text-align: left;
+}
+
 .res_delta_win
 {
   color: green;
+ /* margin-right: 1em;*/
 }
 
 .res_delta_lose
