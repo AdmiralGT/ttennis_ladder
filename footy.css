@@ -35,6 +35,12 @@ a.idlink
   font-weight: bold;
 }
 
+#ttennis_doodle
+{
+  width: 50%;
+  height: auto;
+}
+
 .main_column
 {
   float: left;
