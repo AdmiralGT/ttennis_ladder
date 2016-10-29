@@ -45,12 +45,12 @@ a.idlink
 {
   float: left;
   width: 27.5em;
-  margin-right: 10em;
+  margin: 0 2em;
 }
 
 .secondary_column
 {
-  margin-top: 10em;
+  margin-top: 5em;
   float: left;
   width: 22em;
 }
@@ -255,12 +255,6 @@ a.idlink
 {
   width: 1200px;
   margin: 0 auto;
-}
-
-hr
-{
-  width: 90%;
-  clear: left;
 }
 
 .player_rating_range
