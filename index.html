@@ -27,10 +27,9 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
   <hr>
   <div class="resultadder">
-    <p>New UI! Enter the players and click the Winner button corresponding to which player won the match. Clear the players using the Clear button</p>
     <p>Add results: <button id="add_single_left">Winner</button>
       <input type="text" value="" name="l_player" id="player_left">
-      vs 
+      vs
       <input id="player_right" type="text" value="" name="r_player">
       <button id="add_single_right">Winner</button>
       <button id="clear_results_players">Clear</button>
@@ -92,7 +91,7 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 </script>
 
 <script id="inactive_player_template" type="text/x-jsrender">
-    <div id="player" class="playerrow 
+    <div id="player" class="playerrow
 {{if ((pos % 10) == 0)}}
  playerrow10
 {{/if}}
