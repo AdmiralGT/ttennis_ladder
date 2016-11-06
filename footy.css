@@ -3,7 +3,10 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: grey;
+    
+	border-radius: 2em;
+	font-weight: bold;
+	font-family: sans-serif;
 }
 
 .navbar li {
@@ -12,18 +15,20 @@
 
 .navbar li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+    padding: 1em;
+	border-radius: 2em;
+    text-decoration: none;	
 }
 
-.navbar li a:hover:not(.active) {
-    background-color: #111;
+.navbar li a:hover:not(.active) {	
+    background-color: #e6e6e6;
 }
 
 .navbar .active {
-    background-color: #4CAF50;
+	color: white;
+    background-color: #66b3ff;
 }
 
 div.resultadder
