@@ -298,3 +298,9 @@ a.idlink
 hr
 {
 }
+
+#about_content
+{
+  text-align: left;
+  font-family: sans-serif;  
+}
