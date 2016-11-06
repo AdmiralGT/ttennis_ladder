@@ -272,15 +272,15 @@ a.idlink
 .rating_diff
 {
   float: left;
-  width: 47%;
+  width: 46%;
   text-align: right;
-  margin-right: 6%;
+  margin-right: 8%;
 }
 
 .win_percentage
 {
   float: left;
-  width: 47%;
+  width: 46%;
   text-align: left;
 }
 
