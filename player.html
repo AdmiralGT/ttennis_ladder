@@ -31,44 +31,42 @@ create_stats();
 
 </script>
 
-<h1>Player stats - <span class="id"></span></h1>
-
-<hr>
-
-<div class="rating_bar"></div>
-  <div class="player_padding">&nbsp;</div>
-  <div class="player_padding">&nbsp;</div>
-  <div id="rating_range" class="player_rating_range">
-    <span class="id"></span> rating range: <span id="singles_min">1600</span>-<span id="singles_max">2298</span>
+<div class="main_container">
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+    </ul>
   </div>
-  <div class="player_padding">&nbsp;</div>
-  <div id="home_page_link" class="home_page_link">
-    <a class="home_link" href="index.html">Return to ladder</a>
-  </div>
-</div>
 
-<ul>
-<li>Current run: <span id="current_singles_run"></span></li>
-<li>Best run: <span id="best_singles_run"></span></li>
-<li>Worst run: <span id="worst_singles_run"></span></li>
-<li>&nbsp;</li>
-<li>Total wins: <span id="total_wins"></span></li>
-<li>Total losses: <span id="total_losses"></span></li>
-<li>Win percentage: <span id="win_percentage"></span></li>
-</ul>
+  <h1>Player stats - <span class="id"></span></h1>
+  <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
+  <hr>
 
-<div id="player_page" class="player_page">
-  <canvas id="singles_chart" width="800" height="400"></canvas>
+  <ul>
+    <li><span class="id"></span> rating range: <span id="singles_min">1600</span>-<span id="singles_max">2298</span></li>
+    <li>Current run: <span id="current_singles_run"></span></li>
+    <li>Best run: <span id="best_singles_run"></span></li>
+    <li>Worst run: <span id="worst_singles_run"></span></li>
+    <li>&nbsp;</li>
+    <li>Total wins: <span id="total_wins"></span></li>
+    <li>Total losses: <span id="total_losses"></span></li>
+    <li>Win percentage: <span id="win_percentage"></span></li>
+  </ul>
 
-  <div id="player_rec_res_tbl" class="results_tbl_pPage">
-    <div class="hdr">Recent Results</div>
-    <div id="rec_res_tbl">
-      <div id="result" class="resultrow"></div>
+  <div id="player_page" class="player_page">
+    <div class="chart_pPage"> 
+      <canvas id="singles_chart" width="680" height="360"></canvas>
+    </div>
+    <div id="player_rec_res_tbl" class="results_tbl_pPage">
+      <div class="hdr">Recent Results</div>
+      <div id="rec_res_tbl">
+        <div id="result" class="resultrow"></div>
+      </div>
     </div>
   </div>
-</div>
 
-<hr>
+  <hr>
+</div>
 
 
 <script id="resultTemplate" type="text/x-jsrender">

@@ -1,7 +1,33 @@
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: grey;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.navbar .active {
+    background-color: #4CAF50;
+}
+
 div.resultadder
 {
-  clear: center;
-  float: center;
   text-align: center;
 }
 
@@ -19,7 +45,7 @@ body
   text-align: center;
 }
 
-#main_container
+.main_container
 {
   width: 1000px;
   margin: 0 auto;
@@ -52,13 +78,6 @@ a.idlink
 {
   float: left;
   width: 22em;
-}
-
-/* Results table on a Player Page */
-.results_tbl_pPage
-{
-  float: right;
-  width: 400px;
 }
 
 #outer_tbl
@@ -249,41 +268,25 @@ a.idlink
 
 /* end of results table styling */
 
+.chart_pPage
+{
+  float: left;
+}
+
+/* Results table on a Player Page */
+.results_tbl_pPage
+{
+  float: left;
+  width: 32%;
+}
 
 #player_page
 {
-  width: 1200px;
+  overflow: auto;
   margin: 0 auto;
+  margin-bottom: 2em;
 }
 
 hr
 {
-}
-
-.player_rating_range
-{
-  width: 40%;
-  float: left;
-  text-align: center;
-  padding-bottom: 10px;
-}
-
-.home_page_link
-{
-  float: right;
-  width: 15%;
-  padding-bottom: 10px;
-}
-
-.player_padding
-{
-  width: 15%;
-  float: left;
-  padding-bottom: 10px;
-}
-
-.rating_bar
-{
-  width: 1200;
-  float: left;
 }
