@@ -41,13 +41,36 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 
   <div id="outer_tbl">
     <div id="cool_stuff" class="secondary_column">
-      <div class="hdr">Points difference: Expected win %</div>
-      <p>100: 64%</p>
-      <p>200: 76%</p>
-      <p>300: 85%</p>
-      <p>400: 91%</p>
-      <p>500: 95%</p>
-      <p>600: 97%</p>      
+	  <div class="hdr exp_hdr">
+		  <div class="rating_diff">Rating diff</div>
+		  <div class="win_percentage">Expected win %</div>
+      </div>
+	  <div class="exp_win_table">        
+		<div class="expected_win_row">
+		  <div class="rating_diff">100</div>
+		  <div class="win_percentage">64%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">200</div>
+		  <div class="win_percentage">76%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">300</div>
+		  <div class="win_percentage">85%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">400</div>
+		  <div class="win_percentage">91%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">500</div>
+		  <div class="win_percentage">95%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">600</div>
+		  <div class="win_percentage">97%</div>
+		</div>        
+	  </div>
     </div>
     <div id="main_ladder" class="main_column">
       <div class="hdr playerrow">
