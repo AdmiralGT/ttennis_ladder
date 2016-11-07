@@ -1,7 +1,41 @@
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;    
+	border-radius: 2em;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+
+.navbar li {
+	float: left;
+	border-radius: 2em;
+	border-color: #e6e6e6;
+	border-style: solid;
+}
+
+.navbar li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 1em;
+	border-radius: 2em;
+    text-decoration: none;	
+}
+
+.navbar li a:hover:not(.active) {	
+    background-color: #b3b3b3;
+}
+
+.navbar .active {
+	color: white;
+    background-color: #66b3ff;
+	border-color: #66b3ff;
+}
+
 div.resultadder
 {
-  clear: center;
-  float: center;
   text-align: center;
 }
 
@@ -19,7 +53,7 @@ body
   text-align: center;
 }
 
-#main_container
+.main_container
 {
   width: 1000px;
   margin: 0 auto;
@@ -53,13 +87,6 @@ a.idlink
   margin-top: 8em;
   float: left;
   width: 22em;
-}
-
-/* Results table on a Player Page */
-.results_tbl_pPage
-{
-  float: right;
-  width: 400px;
 }
 
 #outer_tbl
@@ -161,12 +188,12 @@ a.idlink
 
 .lad_record
 {
-  width: 5.5em;
+  width: 5em;
 }
 
 .lad_past
 {
-  width: 6em;
+  width: 6.2em;
   margin-right: 1em;
 }
 
@@ -295,27 +322,27 @@ a.idlink
 .player_rating_range
 {
   width: 40%;
-  float: left;
-  text-align: center;
-  padding-bottom: 10px;
 }
 
-.home_page_link
+.chart_pPage
 {
-  float: right;
-  width: 15%;
-  padding-bottom: 10px;
+  float: left;
 }
 
-.player_padding
+/* Results table on a Player Page */
+.results_tbl_pPage
 {
-  width: 15%;
   float: left;
-  padding-bottom: 10px;
+  width: 32%;
 }
 
-.rating_bar
+#player_page
 {
-  width: 1200;
-  float: left;
+  overflow: auto;
+  margin: 0 auto;
+  margin-bottom: 2em;
+}
+
+hr
+{
 }
