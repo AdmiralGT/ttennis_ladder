@@ -1,37 +1,37 @@
 .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;    
-	border-radius: 2em;
-	font-weight: bold;
-	font-family: sans-serif;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;    
+  border-radius: 2em;
+  font-weight: bold;
+  font-family: sans-serif;
 }
 
 .navbar li {
-	float: left;
-	border-radius: 2em;
-	border-color: #e6e6e6;
-	border-style: solid;
+  float: left;
+  border-radius: 2em;
+  border-color: #e6e6e6;
+  border-style: solid;
 }
 
 .navbar li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 1em;
-	border-radius: 2em;
-    text-decoration: none;	
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 2em;
+  text-decoration: none;	
 }
 
 .navbar li a:hover:not(.active) {	
-    background-color: #b3b3b3;
+  background-color: #b3b3b3;
 }
 
 .navbar .active {
-	color: white;
-    background-color: #66b3ff;
-	border-color: #66b3ff;
+  color: white;
+  background-color: #66b3ff;
+  border-color: #66b3ff;
 }
 
 div.resultadder
@@ -297,4 +297,10 @@ a.idlink
 
 hr
 {
+}
+
+#about_content
+{
+  text-align: left;
+  font-family: sans-serif;  
 }
