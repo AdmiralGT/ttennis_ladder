@@ -79,11 +79,12 @@ a.idlink
 {
   float: left;
   width: 27.5em;
-  margin-right: 10em;
+  margin: 0 2em;
 }
 
 .secondary_column
 {
+  margin-top: 8em;
   float: left;
   width: 22em;
 }
@@ -207,6 +208,7 @@ a.idlink
 .res_hdr
 {
   margin-bottom: 0.5em;
+  height: 1em;
 }
 
 .resultrow
@@ -275,6 +277,52 @@ a.idlink
 }
 
 /* end of results table styling */
+
+/* expected win table styling */
+
+.exp_win_table
+{
+  
+}
+
+.exp_hdr
+{
+  margin-bottom: 0.5em;
+  height: 1em;
+}
+
+.expected_win_row
+{
+  clear: both;
+}
+
+.rating_diff
+{
+  float: left;
+  width: 46%;
+  text-align: right;
+  margin-right: 8%;
+}
+
+.win_percentage
+{
+  float: left;
+  width: 46%;
+  text-align: left;
+}
+
+/* eod of expected win table styling */
+
+#player_page
+{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.player_rating_range
+{
+  width: 40%;
+}
 
 .chart_pPage
 {
