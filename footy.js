@@ -121,8 +121,6 @@ function getplayers(data, offset)
     var gameruna = t_row.run;
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
 
-//    var gameruna = t_row.run.splice(Math.min(t_row.run.length - 10, t_row.run.length),
-  //                                  Math.min(t_row.run.length, 10));
     var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
 
     var p_row = { pos: i+1+offset,
@@ -130,7 +128,7 @@ function getplayers(data, offset)
                   rank: rank,
                   change: '    ', 
                   record: Math.round(t_row.winp * 10)/10 + '%',
-	          gamerun: gamerun
+                  gamerun: gamerun
                 };
 
     players[i] = p_row;
