@@ -118,10 +118,16 @@ function getplayers(data, offset)
     var rank = Math.floor(t_row.rank)
 
     // note that we modify the run array... could use filter instead if we need to change that
-    var gameruna = t_row.run;
+    var gameruna = (t_row.run);
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
-
-    var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
+    //gameruna = JSON.parse(gameruna)
+    //var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
+    var gamerun = "<ul>"
+    for(var game in gameruna)
+    {
+       gamerun += '<li class="' + gameruna[game] + '"></li>'
+    }
+    gamerun += "</ul>"
 
     var p_row = { pos: i+1+offset,
                   id: t_row.id,
@@ -272,7 +278,7 @@ function Player(id) // id is their initials
     if (delta < 0)
     {
       // a loss
-      this.run.push("l");
+      this.run.push("loss");
 
       this.cwrun = 0;
       this.clrun = this.clrun + 1;
@@ -284,7 +290,7 @@ function Player(id) // id is their initials
     }
     else
     {
-      this.run.push("w");
+      this.run.push("win");
       this.wins = this.wins + 1;
 
       this.clrun = 0;
