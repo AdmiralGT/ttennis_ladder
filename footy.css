@@ -34,6 +34,10 @@
   border-color: #66b3ff;
 }
 
+h1 {
+  margin: 0;
+}
+
 div.resultadder
 {
   text-align: center;
@@ -71,7 +75,7 @@ a.idlink
 
 #ttennis_doodle
 {
-  width: 50%;
+  width: 40%;
   height: auto;
 }
 
