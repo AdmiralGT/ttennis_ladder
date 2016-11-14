@@ -117,20 +117,26 @@ function getplayers(data, offset)
 
     var rank = Math.floor(t_row.rank)
 
-    // note that we modify the run array... could use filter instead if we need to change that
-    var gameruna = t_row.run;
+    var gameruna = (t_row.run);
+    // Just the last ten results
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
-
-//    var gameruna = t_row.run.splice(Math.min(t_row.run.length - 10, t_row.run.length),
-  //                                  Math.min(t_row.run.length, 10));
-    var gamerun = gameruna.reduce( function(prev, curr, i, a) { return prev + curr; });
+    
+    var gamerun = "<ul>"
+    for(var game in gameruna)
+    {
+       gamerun += '<li class="' + gameruna[game].result + '">'
+       gamerun += '<div class="tooltiptext">' + gameruna[game].result + ' vs '
+       gamerun += gameruna[game].opponent + '</div>'
+       gamerun += '</li>'
+    }
+    gamerun += "</ul>"
 
     var p_row = { pos: i+1+offset,
                   id: t_row.id,
                   rank: rank,
                   change: '    ', 
                   record: Math.round(t_row.winp * 10)/10 + '%',
-	          gamerun: gamerun
+                  gamerun: gamerun
                 };
 
     players[i] = p_row;
@@ -241,7 +247,9 @@ function Result(winner, w_rank, loser, l_rank, delta)
 }
 
 //
-// example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
+// example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, 
+//                             "run" : [ {"result":"win", "opponent":"DC4"},
+//                                       {"result":"loss", "opponent":"ATN"}, ... ] },
 //
 function Player(id) // id is their initials
 {
@@ -267,14 +275,14 @@ function Player(id) // id is their initials
   // highest ever score
   this.highest = 1600;
 
-  this.addResult = function(delta)
+  this.addResult = function(delta, opponent=null)
   {
     this.rank = this.rank + delta;
 
     if (delta < 0)
     {
       // a loss
-      this.run.push("l");
+      this.run.push(JSON.parse('{ "result":"loss", "opponent":"' + opponent + '" }'));
 
       this.cwrun = 0;
       this.clrun = this.clrun + 1;
@@ -286,7 +294,8 @@ function Player(id) // id is their initials
     }
     else
     {
-      this.run.push("w");
+      //this.run.push("win");
+      this.run.push(JSON.parse('{ "result":"win", "opponent":"' + opponent + '" }'));
       this.wins = this.wins + 1;
 
       this.clrun = 0;
@@ -300,7 +309,7 @@ function Player(id) // id is their initials
 
     // store the current points
     this.ptsrecord.push(this.rank);
-
+    
     this.winp = this.wins/this.run.length * 100;
 
     // this player was active.  So let's look them up in the activity list.
@@ -384,8 +393,8 @@ function loadjsondata(url)
       var delta = compute_elo(vrank, lrank);
 
       // update the rankings
-      singles[v[0]].addResult(delta);
-      singles[l[0]].addResult(0-delta);
+      singles[v[0]].addResult(delta, l[0]);
+      singles[l[0]].addResult(0-delta, v[0]);
 
       var new_vrank = singles[v[0]].rank;
       var new_lrank = singles[l[0]].rank;
