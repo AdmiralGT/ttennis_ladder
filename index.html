@@ -23,14 +23,18 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 </script>
 
 <div class="main_container">
-  <div class="navbar">
-    <ul>
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
+  <div class="titlebar">
+    <h1 class="pagetitle">Table Tennis Rankings</h1>
+    <div class="navbar">
+      <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
   </div>
-  <h1>Table Tennis Rankings</h1>
-  <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
+  <div class="doodle">
+    <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
+  </div>
   <hr>
   <div class="resultadder">
     <p>Add results: <button id="add_single_left">Winner</button>
