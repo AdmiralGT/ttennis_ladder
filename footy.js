@@ -14,7 +14,7 @@ var activity_requirement = 500;
 // A list of all active players
 var active_players = [];
 
-// 
+//
 var activity_list = [];
 var inactivy_list = [];
 
@@ -51,7 +51,7 @@ function drawtable()
   // example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, "run" : "wwwwwwwwww" },
 
   // need in the item s_players,
-  // {{:rank}} 
+  // {{:rank}}
   // {{:change}}
   // {{:id}} - initials
   // {{:record}} - win percentage
@@ -62,21 +62,23 @@ function drawtable()
   var active_players = getplayers(tabledata.singles, 0);
   var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
   var results = getresults(all_results);
+  var upsets = getupsets(all_results);
 
   var template = $.templates("#playerTemplate");
   var htmlOutput = template.render(active_players);
-
   $("#s_tbl").html(htmlOutput);
 
   var template = $.templates("#inactive_player_template");
   var htmlOutput = template.render(inactive_players);
-
   $("#inactive_tbl").html(htmlOutput);
 
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results);
-
   $("#rec_res_tbl").html(htmlOutput);
+
+  var upsets_template = $.templates("#resultTemplate");
+  var htmlOutput = upsets_template.render(upsets);
+  $("#upset_tbl").html(htmlOutput);
 
 //  players = getplayers(tabledata.doubles);
 //  template = $.templates("#rowTemplate");
@@ -120,7 +122,7 @@ function getplayers(data, offset)
     var gameruna = (t_row.run);
     // Just the last ten results
     if (t_row.run.length > 10) { gameruna = t_row.run.splice(-10,10); }
-    
+
     var gamerun = "<ul>"
     for(var game in gameruna)
     {
@@ -134,7 +136,7 @@ function getplayers(data, offset)
     var p_row = { pos: i+1+offset,
                   id: t_row.id,
                   rank: rank,
-                  change: '    ', 
+                  change: '    ',
                   record: Math.round(t_row.winp * 10)/10 + '%',
                   gamerun: gamerun
                 };
@@ -148,7 +150,7 @@ function getplayers(data, offset)
 function getresults(data)
 {
   var results = [ ];
-  var num_recent_results = 20;
+  var num_recent_results = 25;
 
   for (var i = data.length - num_recent_results; i < data.length; i++)
   {
@@ -167,6 +169,33 @@ function getresults(data)
   }
 
   return results;
+}
+
+function getupsets(data)
+{
+  var upsets = [ ];
+  var num_upsets = 25;
+
+  data.sort(function(a,b) { return b.actual_delta - a.actual_delta});
+
+  for (var i = 0; i < num_upsets; i++)
+  {
+    var t_row = data[i]
+    var v_rank = Math.floor(t_row.w_rank)
+    var l_rank = Math.floor(t_row.l_rank)
+
+    var p_row = { v_id: t_row.winner,
+                  l_id: t_row.loser,
+                  v_rank: v_rank,
+                  l_rank: l_rank,
+                  delta: Math.floor(t_row.actual_delta),
+                  actual_delta: t_row.actual_delta,
+                };
+
+    upsets.push(p_row);
+  }
+
+  return upsets;
 }
 
 function get_player_results(data, id)
@@ -213,7 +242,7 @@ function get_player_results(data, id)
 
       var p_row = { id: id,
                     res_delta_class: res_delta_class,
-                    opp_res_delta_class: opp_res_delta_class, 
+                    opp_res_delta_class: opp_res_delta_class,
                     id_rank: id_rank,
                     id_res: id_res,
                     opponent: opponent,
@@ -235,19 +264,20 @@ function get_player_results(data, id)
 }
 
 //
-// example recent result row   { winner: "GRT", w_rank: 1620, loser: "DC4", l_rank: 1580, delay: 20 },
+// example recent result row   { winner: "GRT", w_rank: 1620, loser: "DC4", l_rank: 1580, delta: 20, delta: 20.0010204 },
 //
-function Result(winner, w_rank, loser, l_rank, delta)
+function Result(winner, w_rank, loser, l_rank, delta, actual_delta)
 {
   this.winner = winner;
   this.w_rank = w_rank;
   this.loser = loser;
   this.l_rank = l_rank;
   this.delta = delta;
+  this.actual_delta = actual_delta;
 }
 
 //
-// example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4, 
+// example table data row    { id: "CDL", rank: 1949, "change": 23, "winp" : 84.4,
 //                             "run" : [ {"result":"win", "opponent":"DC4"},
 //                                       {"result":"loss", "opponent":"ATN"}, ... ] },
 //
@@ -309,7 +339,7 @@ function Player(id) // id is their initials
 
     // store the current points
     this.ptsrecord.push(this.rank);
-    
+
     this.winp = this.wins/this.run.length * 100;
 
     // this player was active.  So let's look them up in the activity list.
@@ -400,7 +430,7 @@ function loadjsondata(url)
       var new_lrank = singles[l[0]].rank;
 
       var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
-      var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta);
+      var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta, delta);
 
       if (i > (journal.length - activity_requirement))
       {
@@ -606,7 +636,7 @@ function create_stats()
       $("#total_losses").text((sp.run.length - sp.wins) + " loss");
     }
     $("#win_percentage").text((Math.round(sp.winp * 10) / 10) + "%");
-    
+
   // chart time; include the last 100 games; if there are less, simply put 0
   var datapts = [];
 
