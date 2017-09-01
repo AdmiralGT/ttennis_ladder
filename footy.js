@@ -162,7 +162,7 @@ function getresults(data)
                   l_id: t_row.loser,
                   v_rank: v_rank,
                   l_rank: l_rank,
-                  delta: Math.floor(t_row.delta),
+                  delta: t_row.delta,
                 };
 
     results.unshift(p_row);
@@ -181,15 +181,14 @@ function getupsets(data)
   for (var i = 0; i < num_upsets; i++)
   {
     var t_row = data[i]
-    var v_rank = Math.floor(t_row.w_rank)
-    var l_rank = Math.floor(t_row.l_rank)
+    var v_rank = Math.floor(t_row.old_w_rank)
+    var l_rank = Math.floor(t_row.old_l_rank)
 
     var p_row = { v_id: t_row.winner,
                   l_id: t_row.loser,
                   v_rank: v_rank,
                   l_rank: l_rank,
-                  delta: Math.floor(t_row.actual_delta),
-                  actual_delta: t_row.actual_delta,
+                  delta: t_row.delta,
                 };
 
     upsets.push(p_row);
@@ -266,13 +265,15 @@ function get_player_results(data, id)
 //
 // example recent result row   { winner: "GRT", w_rank: 1620, loser: "DC4", l_rank: 1580, delta: 20, delta: 20.0010204 },
 //
-function Result(winner, w_rank, loser, l_rank, delta, actual_delta)
+function Result(winner, old_w_rank, w_rank, loser, old_l_rank, l_rank, actual_delta)
 {
   this.winner = winner;
+  this.old_w_rank = old_w_rank;
   this.w_rank = w_rank;
   this.loser = loser;
+  this.old_l_rank = old_l_rank;
   this.l_rank = l_rank;
-  this.delta = delta;
+  this.delta = Math.floor(actual_delta);
   this.actual_delta = actual_delta;
 }
 
@@ -429,8 +430,8 @@ function loadjsondata(url)
       var new_vrank = singles[v[0]].rank;
       var new_lrank = singles[l[0]].rank;
 
-      var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
-      var result = new Result(v[0], (vrank + delta), l[0], (lrank - delta), printed_delta, delta);
+      //var printed_delta = Math.floor(new_vrank) - Math.floor(vrank);
+      var result = new Result(v[0], vrank, new_vrank, l[0], lrank, new_lrank, delta);
 
       if (i > (journal.length - activity_requirement))
       {
