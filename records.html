@@ -14,6 +14,11 @@
 </head>
 
 <body>
+<script>
+
+$( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
+
+</script>
 
 <div class="main_container">
   <div class="navbar">
@@ -26,7 +31,7 @@
   <h1>Table Tennis - Records</h1>
   <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
   <hr>
-  <div id="about_content">
+  <div id="records_content">
 	<h3>Longest Winning Streak</h3>
 	<h3>Longest Losing Streak</h3>
 	<h3>Highest Ranking Achieved</h3>
@@ -35,7 +40,14 @@
 	<h3>Most Games Played</h3>
 	<h3>Most Wins</h3>
 	<h3>Most Losses</h3>
+		<a id="record_most_losses_link" href="blah">
+			<div id="record_most_losses_id"></div>
+		</a>
+		- <div id="record_most_losses"></div>
 	<h3>Biggest Climber</h3>
+		<div id="record_biggest_climber"></div>
+	<h3>Total Games Played</h3>
+		<div id="record_total_games"></div>
 	
 	
     <h2>The Table Tennis Ladder</h2>
@@ -60,6 +72,7 @@
     <p>Want to help mantain this site?  Have any ideas for new features?  Get involved <a href="https://github.com/AdmiralGT/ttennis_ladder/" title="https://github.com/AdmiralGT/ttennis_ladder/">here</a>.</p>
   </div>
 </div>
+
 
 </body>
 </html>

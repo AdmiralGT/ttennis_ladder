@@ -1,8 +1,5 @@
 
 
-// how many people to put in the table?
-var table_length = 28;
-
 var tabledata;
 
 // An array of all results
@@ -14,7 +11,9 @@ var activity_requirement = 500;
 // A list of all active players
 var active_players = [];
 
-//
+// A list of all players.
+var player_list = [];
+
 var activity_list = [];
 var inactivy_list = [];
 
@@ -79,6 +78,14 @@ function drawtable()
   var upsets_template = $.templates("#resultTemplate");
   var htmlOutput = upsets_template.render(upsets);
   $("#upset_tbl").html(htmlOutput);
+  
+
+  //document.getElementById("record_total_games").innerHTML = results.length();
+  var most_losses = get_most_losses(player_list);
+  $("#record_most_losses_id").html(most_losses.id);
+  $("#record_most_losses_link").attr("href", "player.html?" + most_losses.id);
+  $("#record_most_losses").html(most_losses.losses + " Losses");
+  $("#record_total_games").html(all_results.length);
 
 //  players = getplayers(tabledata.doubles);
 //  template = $.templates("#rowTemplate");
@@ -262,6 +269,24 @@ function get_player_results(data, id)
   return results;
 }
 
+function get_most_losses(players)
+{
+	var losses = 0;
+	var most_losses_player;
+	
+	for (var i = 0; i < players.length; i++)
+	{
+		var player = s_db[players[i]];
+		if (player.losses > losses)
+		{
+			most_losses_player = player;
+			losses = player.losses;
+		}
+	}
+	
+	return most_losses_player;
+}
+
 //
 // example recent result row   { winner: "GRT", w_rank: 1620, loser: "DC4", l_rank: 1580, delta: 20, delta: 20.0010204 },
 //
@@ -291,6 +316,7 @@ function Player(id) // id is their initials
   this.winp = 0;
   this.run = [];
   this.wins = 0;
+  this.losses = 0;
 
   // runs
   this.maxwrun = 0; // longest win run
@@ -314,6 +340,7 @@ function Player(id) // id is their initials
     {
       // a loss
       this.run.push(JSON.parse('{ "result":"loss", "opponent":"' + opponent + '" }'));
+	  this.losses = this.losses + 1;
 
       this.cwrun = 0;
       this.clrun = this.clrun + 1;
@@ -491,6 +518,7 @@ function loadjsondata(url)
     }
   }
 
+  player_list = activity_list.slice(0);
   inactivity_list = activity_list;
   activity_list = activity_list.splice(activity_list.length-active_players.length,active_players.length);
 
