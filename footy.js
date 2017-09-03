@@ -62,7 +62,7 @@ function drawtable()
   var active_players = getplayers(tabledata.singles, 0);
   var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
   var results = getresults(all_results);
-  var upsets = getupsets(all_results.slice(-100));
+  var upsets = getupsets(all_results.slice(-500));
 
   var template = $.templates("#playerTemplate");
   var htmlOutput = template.render(active_players);
