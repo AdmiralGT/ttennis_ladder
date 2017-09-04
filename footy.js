@@ -76,7 +76,7 @@ function drawtable()
   var htmlOutput = recent_res_template.render(results);
   $("#rec_res_tbl").html(htmlOutput);
 
-  var upsets_template = $.templates("#resultTemplate");
+  var upsets_template = $.templates("#upsetTemplate");
   var htmlOutput = upsets_template.render(upsets);
   $("#upset_tbl").html(htmlOutput);
 
@@ -183,12 +183,16 @@ function getupsets(data)
     var t_row = data[i]
     var v_rank = Math.floor(t_row.old_w_rank)
     var l_rank = Math.floor(t_row.old_l_rank)
+	
+	exponent = (l_rank - v_rank)/400
+	upset = 1/(1 + Math.pow(10,exponent))
 
     var p_row = { v_id: t_row.winner,
                   l_id: t_row.loser,
                   v_rank: v_rank,
                   l_rank: l_rank,
                   delta: t_row.delta,
+				  upset: (upset * 100).toPrecision(4)
                 };
 
     upsets.push(p_row);

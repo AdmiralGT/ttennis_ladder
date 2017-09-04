@@ -287,6 +287,14 @@ a.idlink
   text-align: left;
 }
 
+.upsetrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
 .result
 {
   float: left
@@ -393,6 +401,14 @@ a.idlink
   float: left;
   width: 32%;
 }
+
+.upset_per
+{
+  text-align: right;
+  float: left;
+  width: 5em;
+}
+
 
 #player_page
 {
