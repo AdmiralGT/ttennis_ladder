@@ -184,7 +184,7 @@ function getupsets(data)
     var v_rank = Math.floor(t_row.old_w_rank)
     var l_rank = Math.floor(t_row.old_l_rank)
 	
-	exponent = (l_rank - v_rank)/400
+	exponent = (t_row.old_l_rank - t_row.old_w_rank)/400
 	upset = 1/(1 + Math.pow(10,exponent))
 
     var p_row = { v_id: t_row.winner,
