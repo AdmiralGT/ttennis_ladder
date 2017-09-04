@@ -295,6 +295,14 @@ a.idlink
   text-align: left;
 }
 
+.recordrow
+{
+  clear: both;
+  display: table;
+  marge: 0 auto;
+  text-align: left;
+}
+
 .result
 {
   float: left
@@ -409,6 +417,12 @@ a.idlink
   width: 5em;
 }
 
+.upset_records
+{
+  text-align: left;
+  float: left;
+  width: 4em;
+}
 
 #player_page
 {

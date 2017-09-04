@@ -33,12 +33,44 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   <hr>
   <div id="records_content">
 	<h3>Longest Winning Streak</h3>
+		<div id="outer_tbl">
+			<a id="record_win_run_link" href="blah">
+				<div id="record_win_run_id" class="res_player"></div>
+			</a>
+			<div class ="divider" style="width:2em;">- </div>
+			<div id="record_win_run" style="width:3em;"></div>
+		</div>
 	<h3>Longest Losing Streak</h3>
+		<a id="record_loss_run_link" href="blah">
+			<div id="record_loss_run_id"></div>
+		</a>
+		- <div id="record_loss_run"></div>
 	<h3>Highest Ranking Achieved</h3>
+		<a id="record_highest_link" href="blah">
+			<div id="record_highest_id"></div>
+		</a>
+		- <div id="record_highest"></div>
 	<h3>Lowest Ranking Achieved</h3>
+		<a id="record_lowest_link" href="blah">
+			<div id="record_lowest_id"></div>
+		</a>
+		- <div id="record_lowest"></div>
 	<h3>Biggest Upset</h3>
+		<div id="upset" class="upsetrow">
+			<div id="biggest_upset_tbl">
+				<div id="result" class="resultrow"></div>
+			</div>
+		</div>
 	<h3>Most Games Played</h3>
+		<a id="record_most_games_link" href="blah">
+			<div id="record_most_games_id"></div>
+		</a>
+		- <div id="record_most_games"></div>
 	<h3>Most Wins</h3>
+		<a id="record_most_wins_link" href="blah">
+			<div id="record_most_wins_id"></div>
+		</a>
+		- <div id="record_most_wins"></div>
 	<h3>Most Losses</h3>
 		<a id="record_most_losses_link" href="blah">
 			<div id="record_most_losses_id"></div>
@@ -73,6 +105,20 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   </div>
 </div>
 
+<script id="upsetTemplate" type="text/x-jsrender">
+    <div id="upset" class="upsetrow">
+      <div class="result res_rank">{{:v_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
+      </div>
+      <div class="result res_divider">beat</div>
+      <div class="result res_rank">{{:l_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
+      </div>
+	  <div class="result upset_records">({{:upset}}%)</div>
+    </div>
+</script>
 
 </body>
 </html>
