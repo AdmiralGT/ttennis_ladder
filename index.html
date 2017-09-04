@@ -164,5 +164,20 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
     </div>
 </script>
 
+<script id="upsetTemplate" type="text/x-jsrender">
+    <div id="upset" class="upsetrow">
+      <div class="result res_rank">{{:v_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
+      </div>
+      <div class="result res_divider">beat</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
+      </div>
+      <div class="result res_rank">{{:l_rank}}</div>
+	  <div class="result upset_per">({{:upset}}%)</div>
+    </div>
+</script>
+
 </body>
 </html>
