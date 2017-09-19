@@ -366,7 +366,7 @@ a.idlink
 
 .exp_win_table
 {
-  
+
 }
 
 .exp_hdr
@@ -438,5 +438,11 @@ hr
 #about_content
 {
   text-align: left;
+  font-family: sans-serif;
+}
+
+#records_content
+{
+  text-align: middle;
   font-family: sans-serif;
 }
