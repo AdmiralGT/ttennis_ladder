@@ -3,6 +3,7 @@ import json
 import pickledb
 import os
 
+DELETE_PASSWORD = "dcl1234!"
 
 class Footy(object):
 
@@ -65,6 +66,13 @@ class Footy(object):
 
         games = self.db.lgetall('games')
         return '{"data": ' + json.dumps(games) + '}'
+        
+    @cherrypy.expose
+    def removegames(self, password):
+        if password == DELETE_PASSWORD:
+            entries = cherrypy.request.body.read().split(',')
+            for pos in entries:
+                self.db.lpop('games', int(pos))
 
 if __name__ == '__main__':
     conf = {

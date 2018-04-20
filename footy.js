@@ -32,6 +32,7 @@ var d_db;
 function startup()
 {
   // load the json data
+  all_results = [];
   loadjsondata("journal");
 }
 
@@ -61,7 +62,7 @@ function drawtable()
 
   var active_players = getplayers(tabledata.singles, 0);
   var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
-  var results = getresults(all_results);
+  var results = getresults(all_results, 25);
   var upsets = getupsets(all_results.slice(-500));
 
   var template = $.templates("#playerTemplate");
@@ -147,12 +148,11 @@ function getplayers(data, offset)
   return players;
 }
 
-function getresults(data)
+function getresults(data, num_results)
 {
   var results = [ ];
-  var num_recent_results = 25;
 
-  for (var i = data.length - num_recent_results; i < data.length; i++)
+  for (var i = data.length - num_results; i < data.length; i++)
   {
     var t_row = data[i]
     var v_rank = Math.floor(t_row.w_rank)
@@ -163,6 +163,7 @@ function getresults(data)
                   v_rank: v_rank,
                   l_rank: l_rank,
                   delta: t_row.delta,
+                  id: i
                 };
 
     results.unshift(p_row);
