@@ -163,6 +163,7 @@ function getresults(data)
                   v_rank: v_rank,
                   l_rank: l_rank,
                   delta: t_row.delta,
+                  id: i
                 };
 
     results.unshift(p_row);
