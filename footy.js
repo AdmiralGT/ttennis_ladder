@@ -88,28 +88,6 @@ function drawtable()
 //  $("#d_tbl").html(htmlOutput);
 }
 
-//
-// function: draw_player_res_table
-//
-// function to draw a recent results table for a given player, using the template
-//
-// params: none
-//
-// returns: nothing
-//
-function draw_player_res_table()
-{
-  // what player do we want? URL format is player.html/INITIALS
-  var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
-  var results = get_player_results(all_results, playerid);
-
-  var recent_res_template = $.templates("#resultTemplate");
-  var htmlOutput = recent_res_template.render(results);
-
-  $("#player_rec_res_tbl").html(htmlOutput);
-}
-
-
 function getplayers(data, offset)
 {
   var players = [ ];
