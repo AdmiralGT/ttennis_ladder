@@ -206,10 +206,9 @@ function get_player_results(data, id)
   var results = [ ];
   // Conceivably when we get a large number of games in the database this could
   // slow performance.
-  var results_to_search = 500;
   var results_to_display = 25;
 
-  for (var i = data.length - results_to_search; i < data.length; i++)
+  for (var i = data.length - 1; i >= 0; i--)
   {
     var t_row = data[i]
     var opponent = '';
@@ -256,10 +255,10 @@ function get_player_results(data, id)
                     delta: Math.floor(t_row.delta),
                   };
 
-      results.unshift(p_row);
-      if (results.length > results_to_display)
+      results.push(p_row);
+      if (results.length == results_to_display)
       {
-        results.pop();
+        return results;
       }
     }
   }
