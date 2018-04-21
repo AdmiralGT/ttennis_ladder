@@ -10,6 +10,7 @@
   <script src="scripts/player.js"> </script>
 
   <link rel="stylesheet" href="css/footy.css" />
+  <link rel="stylesheet" href="css/player.css" />
   <link rel="stylesheet" href="css/results.css" />
   
   <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
@@ -68,17 +69,32 @@ addClickHandlers();
         <div id="result" class="resultrow"></div>
       </div>
     </div>
+  </div>
   <hr>
-    <div id="player_opponents_tbl" class="opponents_tbl_pPage">
-      <div class="hdr">Filter Opponents</div>
-      <button id="select_all">Select All</button>
-      <button id="deselect_all">Deselect All</button>
+  <div id="filter_table" class="player_page">
+    <div id="player_opponents_tbl" class="filter_column">
+      <div id="opponent_headers">
+        <div class="hdr">Filter Opponents</div>
+        <button id="select_all" class="filter_button">Select All</button>
+        <button id="deselect_all" class="filter_button">Deselect All</button>
+      </div>
+      <div class="result_display">
+        <span class="result_display">Number of Results:</span>
+        <input class="result_display" id="head_to_head_range" type="range" value="25" min="25" max="200"></input>
+        <output class="result_display" id="results_output"></output>
+      </div>
       <div id="opponents_tbl">
         <div id="opponent" class="opponentrow"></div>
       </div>
     </div>
     <div id="player_opp_res_tbl" class="results_tbl_pPage">
       <div class="hdr">Head to Head Results</div>
+      <ul>
+        <li>Head to Head games: <span id="head_to_head_games"></span></li>
+        <li>Head to Head wins: <span id="head_to_head_wins"></span></li>
+        <li>Head to Head losses: <span id="head_to_head_losses"></span></li>
+        <li>Head to Head win percentage: <span id="head_to_head_win_percentage"></span></li>
+      </ul>
       <div id="opp_res_tbl">
         <div id="result" class="resultrow"></div>
       </div>
@@ -104,12 +120,12 @@ addClickHandlers();
 </script>
 
 <script id="opponentsTemplate" type="text/x-jsrender">
-    <div id="opponent" class="opponentrow">
-        <div class="opp_check_box">
-          <input id="opp_check_box_{{:id}}" type="checkbox" class="chk">
-        </div>
-        <div class="opponent_player">
-          <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
-        </div>
+    <div id="opponent" class="opponentrow result_display">
+      <div class="opponent opp_check_box result_display">
+        <input id="opp_check_box_{{:id}}" type="checkbox" class="chk result_display">
+      </div>
+      <div class="opponent res_player result_display">
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      </div>
     </div>
 </script>
