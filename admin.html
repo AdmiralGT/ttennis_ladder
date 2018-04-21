@@ -35,8 +35,11 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   <h1>Table Tennis Rankings</h1>
   <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
   <hr>
-    <input type="range" id="results_input" value="25", min="10", max="200", step="5"></input>
-    <output id="results_output"></output>
+    <div class="result_display">
+        <span class="result_display">Number of Results:</span>
+        <input class="result_display" type="range" id="results_input" value="25", min="10", max="200", step="5"></input>
+        <output class="result_display" id="results_output"></output>
+    </div>
   <p>Password: <input type="password" value="" id="password"></input>
   <button id="remove_results">Remove Results</button>
   </p>
