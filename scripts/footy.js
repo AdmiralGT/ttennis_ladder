@@ -1,5 +1,3 @@
-
-
 // how many people to put in the table?
 var table_length = 28;
 

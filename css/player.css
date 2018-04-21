@@ -1,0 +1,76 @@
+#filter_table
+{
+  width: 100%;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+#player_page
+{
+  overflow: auto;
+  margin: 0 auto;
+  margin-bottom: 2em;
+}
+
+#opponents_tbl
+{
+  float: left;
+  width: 100%;
+}
+
+#results_output
+{
+  width: 4em;
+}
+
+#opp_res_tbl
+{
+  float: left;
+}
+
+.filter_button
+{
+  margin-bottom: 0.5em;
+}
+
+.filter_column
+{
+  float: left;
+}
+
+.resultrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.opponentrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Results table on a Player Page */
+.results_tbl_pPage
+{
+  float: left;
+  width: 32%;
+}
+
+.opponent
+{
+  display: block;
+  float: left;
+}
+
+.result_display
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
