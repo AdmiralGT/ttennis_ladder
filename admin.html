@@ -2,14 +2,14 @@
 <html lang="en-US">
 
 <head>
-  <script src="json2.js"> </script> <!-- this to make IE work -->
-  <script src="jquery-1.10.2.min.js"> </script>
-  <script src="jsrender.js"> </script>
-  <script src="footy.js"> </script>
-  <script src="admin.js"> </script>
-  <link rel="stylesheet" href="footy.css" />
-  <link rel="stylesheet" href="results.css" />
-  <link rel="stylesheet" href="admin.css" />
+  <script src="scripts/json2.js"> </script> <!-- this to make IE work -->
+  <script src="scripts/jquery-1.10.2.min.js"> </script>
+  <script src="scripts/jsrender.js"> </script>
+  <script src="scripts/footy.js"> </script>
+  <script src="scripts/admin.js"> </script>
+  <link rel="stylesheet" href="css/footy.css" />
+  <link rel="stylesheet" href="css/results.css" />
+  <link rel="stylesheet" href="css/admin.css" />
 
   <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
 
@@ -35,8 +35,11 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
   <h1>Table Tennis Rankings</h1>
   <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
   <hr>
-    <input type="range" id="results_input" value="25", min="10", max="200", step="5"></input>
-    <output id="results_output"></output>
+    <div class="result_display">
+        <span class="result_display">Number of Results:</span>
+        <input class="result_display" type="range" id="results_input" value="25", min="10", max="200", step="5"></input>
+        <output class="result_display" id="results_output"></output>
+    </div>
   <p>Password: <input type="password" value="" id="password"></input>
   <button id="remove_results">Remove Results</button>
   </p>
