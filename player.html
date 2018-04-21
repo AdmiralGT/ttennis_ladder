@@ -29,6 +29,8 @@ drawtable();
 
 create_stats();
 
+addClickHandlers();
+
 });
 
 </script>
@@ -66,15 +68,22 @@ create_stats();
         <div id="result" class="resultrow"></div>
       </div>
     </div>
-    <div id="player_opponenets_tbl" class="opponenets_tbl_pPage">
+  <hr>
+    <div id="player_opponents_tbl" class="opponents_tbl_pPage">
       <div class="hdr">Filter Opponents</div>
-      <div id="opponenets_tbl">
-        <div id="opponenet" class="opponenetrow"></div>
+      <button id="select_all">Select All</button>
+      <button id="deselect_all">Deselect All</button>
+      <div id="opponents_tbl">
+        <div id="opponent" class="opponentrow"></div>
+      </div>
+    </div>
+    <div id="player_opp_res_tbl" class="results_tbl_pPage">
+      <div class="hdr">Head to Head Results</div>
+      <div id="opp_res_tbl">
+        <div id="result" class="resultrow"></div>
       </div>
     </div>
   </div>
-
-  <hr>
 </div>
 
 
@@ -96,10 +105,11 @@ create_stats();
 
 <script id="opponentsTemplate" type="text/x-jsrender">
     <div id="opponent" class="opponentrow">
-    <div class="opp_check_box">
-      <input id="opp_check_box_{{:id}}" type="checkbox" class="chk">
-    </div>
-    <div class="opponent_player">
-      <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+        <div class="opp_check_box">
+          <input id="opp_check_box_{{:id}}" type="checkbox" class="chk">
+        </div>
+        <div class="opponent_player">
+          <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+        </div>
     </div>
 </script>
