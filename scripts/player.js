@@ -44,6 +44,9 @@ function drawtable()
   var htmlOutput = opponents_template.render(opponent_template);
   $("#opponents_tbl").html(htmlOutput);
   
+  head_to_head = document.getElementById("opp_res_tbl");
+  head_to_head.setAttribute("style", "height:" + 15 * player_results.length + "px");
+  
   slider = document.getElementById("head_to_head_range");
   label = document.getElementById("results_output");
   
