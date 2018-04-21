@@ -1,0 +1,305 @@
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 2em;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.navbar li {
+  float: left;
+  border-radius: 2em;
+  border-color: #e6e6e6;
+  border-style: solid;
+}
+
+.navbar li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 2em;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+  background-color: #b3b3b3;
+}
+
+.navbar .active {
+  color: white;
+  background-color: #66b3ff;
+  border-color: #66b3ff;
+}
+
+h1 {
+  margin: 0;
+}
+
+div.resultadder
+{
+  text-align: center;
+}
+
+ul
+{
+  padding: 0px;
+  list-style-type:none;
+  text-align: center;
+}
+
+body
+{
+  font-family: 'Courier New', Fixed, sans-serif;
+  font-size: small;
+  text-align: center;
+}
+
+.main_container
+{
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.rank
+{
+  font-weight: bold;
+}
+
+a.idlink
+{
+  font-weight: bold;
+}
+
+#ttennis_doodle
+{
+  width: 40%;
+  height: auto;
+}
+
+.main_column
+{
+  float: left;
+  margin-right: 8em;
+}
+
+.secondary_column
+{
+  float: left;
+  width: 22em;
+}
+
+#outer_tbl
+{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#main_ladder
+{
+}
+
+#s_tbl
+{
+  padding-bottom: 16px;
+}
+
+#inactive_tbl
+{
+  color: grey;
+}
+
+#recent_res_tbl
+{
+}
+
+#upsets_tbl
+{
+}
+
+.hdr
+{
+  clear: both;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.inactive_hdr
+{
+  clear: both;
+  font-style: italic;
+  font-weight: bold;
+  color: grey;
+}
+
+/* ladder styling */
+.playerrow
+{
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.playerrow_top
+{
+  border-radius: 1em;
+  padding: 0.3em;
+  margin: 0.5em auto;
+}
+
+.playerrow1
+{
+  background-color: gold;
+}
+
+.playerrow2
+{
+  background-color: silver;
+}
+
+.playerrow3
+{
+  background-color: burlywood;
+}
+
+.playerrow10
+{
+  padding-bottom: 1em;
+}
+
+.ladder
+{
+  float: left;
+}
+
+.lad_pos
+{
+  text-align: right;
+  width: 2em;
+  margin-right: 2em;
+}
+
+.lad_rank
+{
+  width: 5em;
+}
+
+.lad_player
+{
+  width: 5em;
+}
+
+.lad_record
+{
+  width: 5em;
+}
+
+.lad_past
+{
+  width: 10em;
+  margin-right: 1em;
+}
+
+.lad_past_entry
+{
+  text-align: right;
+}
+
+.lad_past_entry ul {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 0.5em;
+  padding: 0;
+  overflow: hidden;
+  font-weight: bold;
+  font-family: sans-serif;
+  float: right;
+}
+
+.lad_past_entry li {
+  float: left;
+  width: 0.8em;
+  margin-right: 0.2em;
+  height: 0.5em;
+}
+
+.lad_past_entry .win{
+  background-color: green;
+}
+
+.lad_past_entry .loss{
+  background-color: red;
+}
+
+/* Tooltip text */
+.lad_past_entry .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    margin-left: -55px;
+    margin-top: -2.5em;
+}
+
+.lad_past_entry .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.lad_past_entry li:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* end of ladder styling */
+
+.chart_pPage
+{
+  float: left;
+}
+
+/* Results table on a Player Page */
+.results_tbl_pPage
+{
+  float: left;
+  width: 32%;
+}
+
+.upset_per
+{
+  text-align: right;
+  float: left;
+  width: 5em;
+}
+
+
+#player_page
+{
+  overflow: auto;
+  margin: 0 auto;
+  margin-bottom: 2em;
+}
+
+hr
+{
+}
+
+#about_content
+{
+  text-align: left;
+  font-family: sans-serif;
+}

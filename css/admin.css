@@ -1,0 +1,25 @@
+.admin_column
+{
+    float: left;
+    width: 24em;
+}
+
+.res_check_box
+{
+    /* Weirdly if no height is set this increases to 18px in height but that's just wrong so manually set it to 15px */
+    height: 15px;
+    float: left
+}
+
+input.chk {
+    height: 14px;
+    width: 14px;
+    margin: 0 auto;
+}
+
+.result_display
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
