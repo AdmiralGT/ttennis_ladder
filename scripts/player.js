@@ -57,7 +57,7 @@ function drawtable()
       redraw_head_to_head(slider.value);
     };
   }
-  change_opponenet_check_boxes(true);
+  change_opponenet_check_boxes(false);
   
   label.value = slider.value; // Display the default slider value
   // Update the current slider value (each time you drag the slider handle)
@@ -97,8 +97,31 @@ function redraw_head_to_head(num_results_to_display)
 {
   var opponents = get_selected_opponents();
   var results = get_player_results(player_results, playerid, opponents);
+  
+  games = results[0].length
+  slider.max = games;
+  label.value = slider.value;
+  if (games < recent_results_to_display)
+  {
+    if (slider.value > games)
+    {
+      slider.value = games;
+    }
+    slider.min = games;
+  }
+  else
+  {
+    slider.min = recent_results_to_display;
+    if (slider.value < recent_results_to_display)
+    {
+      slider.value = recent_results_to_display;
+    }
+  }
+  label.value = slider.value;
+  
+  
   create_player_stats(results)
-  var results_to_display = get_results_to_display(results[0], playerid, num_results_to_display);
+  var results_to_display = get_results_to_display(results[0], playerid, slider.value);
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(results_to_display);
   $("#opp_res_tbl").html(htmlOutput);
@@ -255,27 +278,6 @@ function get_results_to_display(data, id, results_to_display)
 function create_player_stats(head_to_head_results)
 {
   var games = head_to_head_results[0].length
-  
-  slider.max = games;
-  label.value = slider.value;
-  if (games < recent_results_to_display)
-  {
-    if (slider.value > games)
-    {
-      slider.value = games;
-    }
-    slider.min = games;
-  }
-  else
-  {
-    slider.min = recent_results_to_display;
-    if (slider.value < recent_results_to_display)
-    {
-      slider.value = recent_results_to_display;
-    }
-  }
-  label.value = slider.value;
-  
   var wins = head_to_head_results[1];
   $("#head_to_head_games").text(games + " games");
   if (games == 1)
