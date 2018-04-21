@@ -185,6 +185,8 @@ function get_player_results(data, id, opponents)
 {
   var results = [];
   var wins = 0;
+  var elo_gain = 0;
+  var elo_loss = 0;
   
   for (var i = data.length - 1; i >= 0; i--)
   {
@@ -209,12 +211,17 @@ function get_player_results(data, id, opponents)
         results.push(t_row);
         if (win)
         {
+          elo_gain += t_row.actual_delta;
           wins++;
+        }
+        else
+        {
+          elo_loss += t_row.actual_delta;
         }
       }
     }
   }
-  return [results, wins];
+  return [results, wins, elo_gain, elo_loss];
 }
 
 function get_results_to_display(data, id, results_to_display)
@@ -279,6 +286,9 @@ function create_player_stats(head_to_head_results)
 {
   var games = head_to_head_results[0].length
   var wins = head_to_head_results[1];
+  var elo_gain = head_to_head_results[2];
+  var elo_loss = head_to_head_results[3];
+  
   $("#head_to_head_games").text(games + " games");
   if (games == 1)
   {
@@ -306,5 +316,25 @@ function create_player_stats(head_to_head_results)
     winp = wins / games;
     $("#head_to_head_win_percentage").text((Math.round(winp * 1000) / 10) + "%");
   }
+  
+  elo_change = Math.floor(elo_gain - elo_loss);
+  elo_text = "";
+  if (elo_change > 0)
+  {
+    elo_text = "+";
+    elo_colour = "green";
+  }
+  else if (elo_change < 0)
+  {
+    // Don't need to add a minus sign because it already has one
+    elo_colour = "red";
+  }
+  else
+  {
+    elo_colour = "black";
+  }
+  elo_text = elo_text + Math.floor(elo_change);
+  $("#head_to_head_elo_change").text(elo_text);
+  $("#head_to_head_elo_change").css("color", elo_colour);
 }
 
