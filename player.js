@@ -24,19 +24,24 @@ function drawtable()
 
   // what player do we want? URL format is player.html/INITIALS
   var playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
-  var results = get_player_results(all_results, playerid);
+  var results_opponenets = get_player_results(all_results, playerid);
 
   var recent_res_template = $.templates("#resultTemplate");
-  var htmlOutput = recent_res_template.render(results);
-
+  var htmlOutput = recent_res_template.render(results_opponenets[0]);
   $("#player_rec_res_tbl").html(htmlOutput);
+
+  var opponenets_template = $.templates("#opponentsTemplate");
+  var htmlOutput = opponenets_template.render(results_opponenets[1]);
+  $("#player_opponenets_tbl").html(htmlOutput);
 
 }
 
 function get_player_results(data, id)
 {
-  var results = [ ];
-  // Conceivably when we get a large number of games in the database this could
+  var results = [];
+  var opponents = [];
+  var opponenet_names = [];
+ // Conceivably when we get a large number of games in the database this could
   // slow performance.
   var results_to_display = 25;
 
@@ -45,7 +50,7 @@ function get_player_results(data, id)
     var t_row = data[i]
     var opponent = '';
     var result_str = 'loss vs'
-
+ 
     if ((id == t_row.winner) || (id == t_row.loser))
     {
       if ((id == t_row.winner))
@@ -73,6 +78,13 @@ function get_player_results(data, id)
         opp_colour = 'green'
         opp_rank = Math.floor(t_row.w_rank)
       }
+      
+      if (opponenet_names.includes(opponent) == false)
+      {
+          var o_row = { id: opponent }
+          opponents.push(o_row);
+          opponenet_names.push(opponent);
+      }
 
       var p_row = { id: id,
                     res_delta_class: res_delta_class,
@@ -87,13 +99,12 @@ function get_player_results(data, id)
                     delta: Math.floor(t_row.delta),
                   };
 
-      results.push(p_row);
-      if (results.length == results_to_display)
+      if (results.length < results_to_display)
       {
-        return results;
+        results.push(p_row);
       }
     }
   }
-  return results;
+  return [results, opponents];
 }
 
