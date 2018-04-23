@@ -2,8 +2,8 @@ var opponents = [];
 var player_results = [];
 var playerid = '';
 var recent_results_to_display = 25;
-var slider = null; 
-var label = null; 
+var slider = null;
+var label = null;
 
 //
 // function: drawtable
@@ -33,23 +33,23 @@ function drawtable()
   playerid = window.location.href.substring(window.location.href.indexOf('?')+1);
   opponents = get_player_opponents(all_results, playerid);
   player_results = get_player_results(all_results, playerid, opponents)[0];
-  
+
   recent_player_results = get_results_to_display(player_results, playerid, recent_results_to_display);
   var recent_res_template = $.templates("#resultTemplate");
   var htmlOutput = recent_res_template.render(recent_player_results);
   $("#rec_res_tbl").html(htmlOutput);
-  
+
   var opponents_template = $.templates("#opponentsTemplate");
   var opponent_template = create_opponents_template(opponents);
   var htmlOutput = opponents_template.render(opponent_template);
   $("#opponents_tbl").html(htmlOutput);
-  
+
   head_to_head = document.getElementById("opp_res_tbl");
   head_to_head.setAttribute("style", "height:" + 15 * player_results.length + "px");
-  
+
   slider = document.getElementById("head_to_head_range");
   label = document.getElementById("results_output");
-  
+
   for (var ii = 0; ii < opponents.length; ii++)
   {
     checkbox = document.getElementById("opp_check_box_" + opponents[ii]);
@@ -58,13 +58,13 @@ function drawtable()
     };
   }
   change_opponenet_check_boxes(false);
-  
+
   label.value = slider.value; // Display the default slider value
   // Update the current slider value (each time you drag the slider handle)
   slider.oninput = function() {
       label.value = this.value;
       redraw_head_to_head(this.value);
-  } 
+  }
 
 }
 
@@ -73,7 +73,7 @@ function addClickHandlers()
   $("#select_all").click(function() {
     change_opponenet_check_boxes(true);
   });
-  
+
   $("#deselect_all").click(function() {
     change_opponenet_check_boxes(false);
   });
@@ -97,7 +97,7 @@ function redraw_head_to_head(num_results_to_display)
 {
   var opponents = get_selected_opponents();
   var results = get_player_results(player_results, playerid, opponents);
-  
+
   games = results[0].length
   slider.max = games;
   label.value = slider.value;
@@ -118,8 +118,8 @@ function redraw_head_to_head(num_results_to_display)
     }
   }
   label.value = slider.value;
-  
-  
+
+
   create_player_stats(results)
   var results_to_display = get_results_to_display(results[0], playerid, slider.value);
   var recent_res_template = $.templates("#resultTemplate");
@@ -145,7 +145,7 @@ function get_player_opponents(data, id)
   {
     var t_row = data[i]
     var opponent = '';
- 
+
     if ((id == t_row.winner) || (id == t_row.loser))
     {
       if ((id == t_row.winner))
@@ -158,7 +158,7 @@ function get_player_opponents(data, id)
         // Opponent won
         opponent = t_row.winner;
       }
-      
+
       if (opponent_names.includes(opponent) == false)
       {
           opponent_names.push(opponent);
@@ -171,7 +171,7 @@ function get_player_opponents(data, id)
 function create_opponents_template(opponents)
 {
     var opponent_templates = [];
-    
+
     for (var ii = 0; ii < opponents.length; ii++)
     {
       var p_row = { id: opponents[ii] };
@@ -187,8 +187,8 @@ function get_player_results(data, id, opponents)
   var wins = 0;
   var elo_gain = 0;
   var elo_loss = 0;
-  
-  for (var i = data.length - 1; i >= 0; i--)
+
+  for (var i = 0; i < data.length; i++)
   {
     var t_row = data[i]
     var opponent = '';
@@ -205,7 +205,7 @@ function get_player_results(data, id, opponents)
       {
         opponent = t_row.winner;
       }
-      
+
       if (opponents.includes(opponent) == true)
       {
         results.push(t_row);
@@ -227,13 +227,13 @@ function get_player_results(data, id, opponents)
 function get_results_to_display(data, id, results_to_display)
 {
   var results = [];
-  
+
   for (var i = data.length - 1; i >= 0; i--)
   {
     var t_row = data[i]
     var opponent = '';
     var result_str = 'loss vs'
-  
+
     if ((id == t_row.winner))
     {
       // The player won
@@ -259,7 +259,7 @@ function get_results_to_display(data, id, results_to_display)
       opp_colour = 'green'
       opp_rank = Math.floor(t_row.w_rank)
     }
-    
+
     var p_row = { id: id,
                 res_delta_class: res_delta_class,
                 opp_res_delta_class: opp_res_delta_class,
@@ -272,7 +272,7 @@ function get_results_to_display(data, id, results_to_display)
                 result: result_str,
                 delta: Math.floor(t_row.delta),
     };
-    
+
     results.push(p_row);
     if (results.length == results_to_display)
     {
@@ -288,13 +288,13 @@ function create_player_stats(head_to_head_results)
   var wins = head_to_head_results[1];
   var elo_gain = head_to_head_results[2];
   var elo_loss = head_to_head_results[3];
-  
+
   $("#head_to_head_games").text(games + " games");
   if (games == 1)
   {
     $("#head_to_head_games").text(games + " game");
   }
-  
+
   $("#head_to_head_wins").text(wins + " wins");
   if (wins == 1)
   {
@@ -306,7 +306,7 @@ function create_player_stats(head_to_head_results)
   {
     $("#head_to_head_losses").text((games - wins) + " loss");
   }
-  
+
   if (games == 0)
   {
     $("#head_to_head_win_percentage").text("0%");
@@ -316,7 +316,7 @@ function create_player_stats(head_to_head_results)
     winp = wins / games;
     $("#head_to_head_win_percentage").text((Math.round(winp * 1000) / 10) + "%");
   }
-  
+
   elo_change = Math.floor(elo_gain - elo_loss);
   elo_text = "";
   if (elo_change > 0)
