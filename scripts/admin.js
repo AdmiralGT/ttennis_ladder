@@ -1,5 +1,6 @@
 // An array of all results
 var all_results = [];
+var display_results = 0;
 
 //
 // function: drawtable
@@ -43,6 +44,7 @@ function drawtable()
 function render_results(num_results)
 {
   var results = getresults(all_results, num_results);
+  display_results = num_results;
 
   var recent_res_template = $.templates("#adminTemplate");
   var htmlOutput = recent_res_template.render(results);
@@ -66,7 +68,7 @@ function remove_games()
 {
     var password = $("#password").val();
     var games_to_remove = "";
-    for (var id = 0; id < all_results.length; id++)
+    for (var id = all_results.length; id >= all_results.length - display_results; id--)
     {
         checkbox = document.getElementById("res_check_box_" + id)
         if ((checkbox != null) && (checkbox.checked == true))
