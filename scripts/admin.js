@@ -67,13 +67,13 @@ function addClickHandlers()
 function remove_games()
 {
     var password = $("#password").val();
-    var games_to_remove = "";
-    for (var id = all_results.length; id >= all_results.length - display_results; id--)
+    var games_to_remove = [];
+    for (var id = all_results.length - 1; id >= all_results.length - display_results; id--)
     {
         checkbox = document.getElementById("res_check_box_" + id)
         if ((checkbox != null) && (checkbox.checked == true))
         {
-            games_to_remove += (id) + ","
+            games_to_remove.push(id)
         }
     }
     var request = new XMLHttpRequest();
@@ -82,7 +82,7 @@ function remove_games()
         startup();
         drawtable();
     };
-    request.send(games_to_remove);
+    request.send(games_to_remove.join(","));
     $("#password").val('');
     return request;
 }
