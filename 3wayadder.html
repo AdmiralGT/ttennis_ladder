@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <script src="scripts/json2.js"> </script> <!-- this to make IE work -->
+  <script src="scripts/jquery-1.10.2.min.js"> </script>
+  <script src="scripts/jsrender.js"> </script>
+  <script src="scripts/footy.js"> </script>
+  <script src="scripts/3wayadder.js"> </script>
+  <link rel="stylesheet" href="css/footy.css" />
+  <link rel="stylesheet" href="css/results.css" />
+  <link rel="stylesheet" href="css/expected_win.css" />
+  <link rel="stylesheet" href="css/3wayadder.css" />
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+
+  <title>Table Tennis</title>
+</head>
+
+<body>
+<script>
+
+$("#addsingles").click(function(){ alert("yo"); });
+
+$( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
+
+</script>
+
+<div class="main_container">
+  <div class="navbar">
+    <ul>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+  <h1>Table Tennis Rankings</h1>
+  <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
+  <hr>
+  <div id="ttennis_header">Enter both Metaswitch initials, then press Winner once for each game to 11</div>
+  <div class="3wayadder">
+    <div class="3wayadderrow">
+      <button id="a_win_vs_b" class="button ABbutton">A beats B</button>
+      <button id="b_win_vs_a" class="button ABbutton">B beats A</button>
+    </div>
+    <div class="3wayadderrow">
+      <button id="a_win_vs_c">A beats C</button>
+        A:<input type="text" value="" id="player_a"></input>
+        vs
+        B:<input type="text" value="" id="player_b"></input>
+        <button id="b_win_vs_c">B beats C</button>
+    </div>
+    <div class="3wayadderrow">
+      <div id="AvsC" class="Cvs">vs</div>
+      <div id="BvsC" class="Cvs">vs</div>
+    </div>
+    <div class="3wayadderrow">
+      <button id="c_win_vs_a">C beats A</button>
+      C:<input type="text" value="" id="player_c"></input>
+      <button id="c_win_vs_b">C beats B</button>
+    </div>
+    <div class="3wayadderrow">
+      <button style="margin-top: 5px;" id="3wayclear">Clear</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div id="outer_tbl">
+    <div id="main_ladder" class="main_column">
+      <div class="hdr playerrow">
+        <div class="ladder lad_pos">Pos</div>
+        <div class="ladder lad_rank">Rating</div>
+        <div class="ladder lad_player">Player</div>
+        <div class="ladder lad_record">Record</div>
+        <div class="ladder lad_past">Past</div>
+      </div>
+      <div id="s_tbl">
+        <div id="player" class="playerrow"></div>
+      </div>
+      <div class="inactive_hdr">Inactive Players</div>
+      <div id="inactive_tbl">
+        <div id="player" class="playerrow"></div>
+      </div>
+    </div>
+
+    <div id="recent_res_tbl" class="secondary_column">
+      <div class="hdr res_hdr">Recent Results</div>
+      <div id="rec_res_tbl">
+        <div id="result" class="resultrow"></div>
+      </div>
+      <div class="hdr upsets_hdr">Recent Biggest Upsets</div>
+      <div id="upset_tbl">
+        <div id="result" class="resultrow"></div>
+      </div>
+      <div class="hdr exp_hdr">
+		  <div class="rating_diff">Rating gap</div>
+		  <div class="win_percentage">Expected win %</div>
+      </div>
+	  <div class="exp_win_table">
+		<div class="expected_win_row">
+		  <div class="rating_diff">100</div>
+		  <div class="win_percentage">64%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">200</div>
+		  <div class="win_percentage">76%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">300</div>
+		  <div class="win_percentage">85%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">400</div>
+		  <div class="win_percentage">91%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">500</div>
+		  <div class="win_percentage">95%</div>
+		</div>
+		<div class="expected_win_row">
+		  <div class="rating_diff">600</div>
+		  <div class="win_percentage">97%</div>
+		</div>
+	  </div>
+    </div>
+  </div>
+</div>
+
+<script id="playerTemplate" type="text/x-jsrender">
+    <div id="player" class="playerrow
+{{if ((pos % 10) == 0)}}
+ playerrow10
+{{/if}}
+{{if (pos == 1)}}
+ playerrow_top playerrow1
+{{/if}}
+{{if (pos == 2)}}
+ playerrow_top playerrow2
+{{/if}}
+{{if (pos == 3)}}
+ playerrow_top playerrow3
+{{/if}}
+">
+      <div class="ladder lad_pos">{{:pos}}</div>
+      <div class="ladder lad_rank">{{:rank}}</div>
+      <div class="ladder lad_player">
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      </div>
+      <div class="ladder lad_record">{{:record}}</div>
+      <div class="ladder lad_past lad_past_entry">{{:gamerun}}</div>
+    </div>
+</script>
+
+<script id="inactive_player_template" type="text/x-jsrender">
+    <div id="player" class="playerrow
+{{if ((pos % 10) == 0)}}
+ playerrow10
+{{/if}}
+">
+      <div class="ladder lad_pos">{{:pos}}</div>
+      <div class="ladder lad_rank">{{:rank}}</div>
+      <div class="ladder lad_player">
+        <a class="idlink" href="player.html?{{:id}}">{{:id}}</a>
+      </div>
+      <div class="ladder lad_record">{{:record}}</div>
+      <div class="ladder lad_past lad_past_entry">{{:gamerun}}</div>
+    </div>
+</script>
+
+<script id="resultTemplate" type="text/x-jsrender">
+    <div id="result" class="resultrow">
+      <div class="result res_delta res_delta_win res_delta_left">(+{{:delta}})</div>
+      <div class="result res_rank">{{:v_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
+      </div>
+      <div class="result res_divider">beat</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
+      </div>
+      <div class="result res_rank">{{:l_rank}}</div>
+      <div class="result res_delta res_delta_lose res_delta_right">(-{{:delta}})</div>
+    </div>
+</script>
+
+<script id="upsetTemplate" type="text/x-jsrender">
+    <div id="upset" class="upsetrow">
+      <div class="result res_rank">{{:v_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
+      </div>
+      <div class="result res_divider">beat</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
+      </div>
+      <div class="result res_rank">{{:l_rank}}</div>
+	  <div class="result upset_per">({{:upset}}%)</div>
+    </div>
+</script>
+
+</body>
+</html>
