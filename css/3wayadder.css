@@ -1,0 +1,40 @@
+div#AvsC
+{
+  margin-left: 430px;
+}
+
+div#BvsC
+{
+  margin-left: 120px;
+  margin-right: 400px;
+}
+
+div.Cvs
+{
+  float: left;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+div.3wayadderrow
+{
+  text-align: center;
+  width: 1000px;
+}
+
+button.ABbutton
+{
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+button#b_win_vs_a
+{
+  margin-right: 200px;
+}
+
+button#a_win_vs_b
+{
+  float: left;
+  margin-left: 360px;
+}

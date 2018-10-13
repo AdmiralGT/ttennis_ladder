@@ -6,9 +6,11 @@
   <script src="scripts/jquery-1.10.2.min.js"> </script>
   <script src="scripts/jsrender.js"> </script>
   <script src="scripts/footy.js"> </script>
+  <script src="scripts/3wayadder.js"> </script>
   <link rel="stylesheet" href="css/footy.css" />
   <link rel="stylesheet" href="css/results.css" />
   <link rel="stylesheet" href="css/expected_win.css" />
+  <link rel="stylesheet" href="css/3wayadder.css" />
 
   <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
 
@@ -27,24 +29,39 @@ $( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
 <div class="main_container">
   <div class="navbar">
     <ul>
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="3wayadder.html">3-way Results</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="3wayadder.html">3-way Results</a></li>
       <li><a href="about.html">About</a></li>
-	  <li><a href="records.html">Records</a></li>
     </ul>
   </div>
   <h1>Table Tennis Rankings</h1>
   <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
   <hr>
-  <div id="ttennis_header">Enter both Metaswitch initials, then press Winner once for each game to 11</div>
-  <div class="resultadder">
-    <p>Add results: <button id="add_single_left">Winner</button>
-      <input type="text" value="" name="l_player" id="player_left">
-      vs
-      <input id="player_right" type="text" value="" name="r_player">
-      <button id="add_single_right">Winner</button>
-      <button id="clear_results_players">Clear</button>
-    </p>
+  <div id="ttennis_header">Enter Metaswitch initials in relevant boxes, then press corresponding button once for each game to 11</div>
+  <div class="3wayadder">
+    <div class="3wayadderrow">
+      <button id="a_win_vs_b" class="button ABbutton">A beats B</button>
+      <button id="b_win_vs_a" class="button ABbutton">B beats A</button>
+    </div>
+    <div class="3wayadderrow">
+      <button id="a_win_vs_c">A beats C</button>
+        A:<input type="text" value="" id="player_a"></input>
+        vs
+        B:<input type="text" value="" id="player_b"></input>
+        <button id="b_win_vs_c">B beats C</button>
+    </div>
+    <div class="3wayadderrow">
+      <div id="AvsC" class="Cvs">vs</div>
+      <div id="BvsC" class="Cvs">vs</div>
+    </div>
+    <div class="3wayadderrow">
+      <button id="c_win_vs_a">C beats A</button>
+      C:<input type="text" value="" id="player_c"></input>
+      <button id="c_win_vs_b">C beats B</button>
+    </div>
+    <div class="3wayadderrow">
+      <button style="margin-top: 5px;" id="3wayclear">Clear</button>
+    </div>
   </div>
 
   <hr>

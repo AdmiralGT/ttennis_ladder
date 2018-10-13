@@ -1,5 +1,3 @@
-
-
 var tabledata;
 
 // An array of all results

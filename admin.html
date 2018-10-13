@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <script src="scripts/json2.js"> </script> <!-- this to make IE work -->
+  <script src="scripts/jquery-1.10.2.min.js"> </script>
+  <script src="scripts/jsrender.js"> </script>
+  <script src="scripts/footy.js"> </script>
+  <script src="scripts/admin.js"> </script>
+  <link rel="stylesheet" href="css/footy.css" />
+  <link rel="stylesheet" href="css/results.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+
+  <link href='http://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+
+  <title>Table Tennis</title>
+</head>
+
+<body>
+<script>
+
+$("#addsingles").click(function(){ alert("yo"); });
+
+$( document ).ready(function() { startup(); drawtable(); addClickHandlers();});
+
+</script>
+
+<div class="main_container">
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="3wayadder.html">3-way Results</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+  <h1>Table Tennis Rankings</h1>
+  <img id="ttennis_doodle" src="ttennis_doodle.png" alt="table tennis doodle"/>
+  <hr>
+    <div class="result_display">
+        <span class="result_display">Number of Results:</span>
+        <input class="result_display" type="range" id="results_input" value="25", min="10", max="200", step="5"></input>
+        <output class="result_display" id="results_output"></output>
+    </div>
+  <p>Password: <input type="password" value="" id="password"></input>
+  <button id="remove_results">Remove Results</button>
+  </p>
+  <hr>
+
+  <div id="outer_tbl">
+    <div id="recent_res_tbl" class="admin_column">
+      <div class="hdr res_hdr">Recent Results</div>
+      <div id="rec_res_tbl">
+        <div id="result" class="resultrow"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="adminTemplate" type="text/x-jsrender">
+    <div id="result_admin_{{:id}}" class="resultrow">
+      <div class="res_check_box"><input id="res_check_box_{{:id}}" type="checkbox" class="chk"></div>
+      <div class="result res_delta res_delta_win res_delta_left">(+{{:delta}})</div>
+      <div class="result res_rank">{{:v_rank}}</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:v_id}}">{{:v_id}}</a>
+      </div>
+      <div class="result res_divider">beat</div>
+      <div class="result res_player">
+        <a class="idlink" href="player.html?{{:l_id}}">{{:l_id}}</a>
+      </div>
+      <div class="result res_rank">{{:l_rank}}</div>
+      <div class="result res_delta res_delta_lose res_delta_right">(-{{:delta}})</div>
+    </div>
+</script>
+
+</body>
+</html>
