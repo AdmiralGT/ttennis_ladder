@@ -60,8 +60,10 @@ function drawtable()
 
   var active_players = getplayers(tabledata.singles, 0);
   var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
-  var results = getresults(all_results, 25);
-  var upsets = getupsets(all_results.slice(-500));
+  var results = getresults(all_results);
+  all_results.sort(function(a,b) { return b.actual_delta - a.actual_delta});
+  
+  var upsets = getupsets(all_results.slice(-activity_requirement), 25);
 
   var template = $.templates("#playerTemplate");
   var htmlOutput = template.render(active_players);
@@ -170,12 +172,9 @@ function getresults(data, num_results)
   return results;
 }
 
-function getupsets(data)
+function getupsets(data, num_upsets)
 {
   var upsets = [ ];
-  var num_upsets = 25;
-
-  data.sort(function(a,b) { return b.actual_delta - a.actual_delta});
 
   for (var i = 0; i < num_upsets; i++)
   {
@@ -689,17 +688,6 @@ function create_stats()
 
 function addClickHandlers()
 {
-  $("#addsingles").click(function() {
-    // need to get the values for the winner and loser parameters
-    var sw1 = $("#sw1").val().toUpperCase();
-    var sl1 = $("#sl1").val().toUpperCase();
-
-    clearInputs();
-
-    loadjsondata("addgame?winner1="+sw1+"&loser1="+sl1);
-    drawtable();
-  });
-
   $("#add_single_left").click(function() {
     var player_left = $("#player_left").val().toUpperCase();
     var player_right = $("#player_right").val().toUpperCase();
@@ -719,13 +707,6 @@ function addClickHandlers()
   $("#clear_results_players").click(function() {
     clear_results_inputs();
   });
-}
-
-function clearInputs()
-{
-  $("#sw1").val('');
-  $("#sl1").val('');
-  clear_results_inputs();
 }
 
 function clear_results_inputs()
