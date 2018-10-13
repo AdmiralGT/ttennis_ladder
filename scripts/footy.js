@@ -492,6 +492,7 @@ function loadjsondata(url)
     }
   }
 
+  player_list = activity_list.slice(0);
   inactivity_list = activity_list;
   activity_list = activity_list.splice(activity_list.length-active_players.length,active_players.length);
 
