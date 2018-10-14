@@ -20,9 +20,9 @@ function drawrecords()
   $("#record_highest_id").html(most_stats["highest"].id);
   $("#record_highest_link").attr("href", "player.html?" + most_stats["highest"].id);
   $("#record_highest").html((most_stats["highest"].highest.toFixed(0)));
-  $("#record_lowest_id").html(most_stats["lowest"].id);
-  $("#record_lowest_link").attr("href", "player.html?" + most_stats["lowest"].id);
-  $("#record_lowest").html((most_stats["lowest"].lowest.toFixed(0)));
+  //$("#record_lowest_id").html(most_stats["lowest"].id);
+  //$("#record_lowest_link").attr("href", "player.html?" + most_stats["lowest"].id);
+  //$("#record_lowest").html((most_stats["lowest"].lowest.toFixed(0)));
   $("#record_win_run_id").html(most_stats["win_run"].id);
   $("#record_win_run_link").attr("href", "player.html?" + most_stats["win_run"].id);
   $("#record_win_run").html((most_stats["win_run"].maxwrun + " Wins"));

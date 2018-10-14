@@ -292,6 +292,7 @@ function Player(id) // id is their initials
   this.winp = 0;
   this.run = [];
   this.wins = 0;
+  this.losses = 0;
 
   // runs
   this.maxwrun = 0; // longest win run
@@ -315,6 +316,7 @@ function Player(id) // id is their initials
     {
       // a loss
       this.run.push(JSON.parse('{ "result":"loss", "opponent":"' + opponent + '" }'));
+      this.losses = this.losses + 1;
 
       this.cwrun = 0;
       this.clrun = this.clrun + 1;
