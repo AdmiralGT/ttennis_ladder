@@ -3,7 +3,7 @@ div.records_row
   float: left;
   text-align: center;
   width: 1000px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 a.records_link
@@ -12,10 +12,16 @@ a.records_link
   float: left;
 }
 
+a#record_highest_link
+{
+  margin-left: 460px;
+  float: left;
+}
+
 div.records_divider
 {
-  margin-left: 1px;
-  margin-right: 2px;
+  margin-left: 3px;
+  margin-right: 3px;
   float: left;
 }
 
@@ -26,6 +32,7 @@ div.records_value
 
 .h3, h3
 {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   margin-top: 5px;
 }
+
