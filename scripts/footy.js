@@ -59,7 +59,6 @@ function drawtable()
   var active_players = getplayers(tabledata.singles, 0);
   var inactive_players = getplayers(tabledata.inactive_singles, active_players.length);
   var results = getresults(all_results);
-  all_results.sort(function(a,b) { return b.actual_delta - a.actual_delta});
 
   var upsets = getupsets(all_results.slice(-activity_requirement), 25);
   var biggest_upset = getupsets(all_results, 1);
@@ -81,7 +80,7 @@ function drawtable()
   $("#upset_tbl").html(htmlOutput);
   htmlOutput = upsets_template.render(biggest_upset);
   $("#biggest_upset_tbl").html(htmlOutput);
-  
+
 
   //document.getElementById("record_total_games").innerHTML = results.length();
   var most_stats = get_most_stats(player_list);
@@ -106,7 +105,7 @@ function drawtable()
   $("#record_loss_run_id").html(most_stats["loss_run"].id);
   $("#record_loss_run_link").attr("href", "player.html?" + most_stats["loss_run"].id);
   $("#record_loss_run").html((most_stats["loss_run"].maxlrun + " Losses"));
-  
+
   $("#record_total_games").html(all_results.length);
 
 //  players = getplayers(tabledata.doubles);
@@ -205,13 +204,14 @@ function getupsets(data, number)
   var upsets = [ ];
   var num_upsets = number;
 
+  data.sort(function(a,b) { return b.actual_delta - a.actual_delta});
 
   for (var i = 0; i < num_upsets; i++)
   {
     var t_row = data[i]
     var v_rank = Math.floor(t_row.old_w_rank)
     var l_rank = Math.floor(t_row.old_l_rank)
-	
+
 	exponent = (t_row.old_l_rank - t_row.old_w_rank)/400
 	upset = 1/(1 + Math.pow(10,exponent))
 
@@ -220,7 +220,7 @@ function getupsets(data, number)
                   v_rank: v_rank,
                   l_rank: l_rank,
                   delta: t_row.delta,
-				  upset: (upset * 100).toPrecision(4)
+				          upset: (upset * 100).toPrecision(4)
                 };
 
     upsets.push(p_row);
@@ -310,7 +310,7 @@ function get_most_stats(players)
 	var lowest_player;
 	var win_run_player;
 	var loss_run_player;
-	
+
 	for (var i = 0; i < players.length; i++)
 	{
 		var player = s_db[players[i]];
@@ -350,7 +350,7 @@ function get_most_stats(players)
 			loss_run = player.maxlrun;
 		}
 	}
-	
+
 	var records = {};
 	records["wins"] = most_wins_player;
 	records["losses"] = most_losses_player;
@@ -359,7 +359,7 @@ function get_most_stats(players)
 	records["lowest"] = lowest_player;
 	records["win_run"] = win_run_player;
 	records["loss_run"] = loss_run_player;
-	
+
 	return records;
 }
 
