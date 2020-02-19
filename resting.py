@@ -39,7 +39,7 @@ class Footy(object):
             gamedef['v'] = victorlist
             gamedef['l'] = loserlist
 
-            print gamedef
+            print(gamedef)
 
             self.db.ladd('games', gamedef)
             # self.db.dump()
@@ -57,12 +57,12 @@ class Footy(object):
                 gamedef['v'] = victorlist
                 gamedef['l'] = loserlist
 
-                print gamedef
+                print(gamedef)
 
                 self.db.ladd('games', gamedef)
                 # self.db.dump()
             else:
-                print "Illegal game rejected"
+                print("Illegal game rejected")
 
         games = self.db.lgetall('games')
         return '{"data": ' + json.dumps(games) + '}'
@@ -83,7 +83,17 @@ if __name__ == '__main__':
             }
           }
 
-    cherrypy.config.update({'server.socket_host': '0.0.0.0'})
-    cherrypy.config.update({'server.socket_port': 90})
+    server = cherrypy._cpserver.Server()
+    server.socket_host = '0.0.0.0'
+    server.socket_port = 90
+    server.subscribe()
 
-    cherrypy.quickstart(Footy(), '/', conf)
+    server = cherrypy._cpserver.Server()
+    server.socket_host = '0.0.0.0'
+    server.socket_port = 8081
+    server.subscribe()
+
+    cherrypy.server.unsubscribe()
+    cherrypy.tree.mount(Footy(), '/', conf)
+    cherrypy.engine.start()
+    cherrypy.engine.block()
